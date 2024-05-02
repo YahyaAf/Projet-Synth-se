@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('categories_produits', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('mot_de_passe');
-            $table->unsignedBigInteger('id_panier')->nullable();
-            $table->unsignedBigInteger('id_commande')->nullable();
             $table->timestamps();
         });
     }
@@ -27,9 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories_produits');
     }
 };
-
-
-//DROP DATABASE project_synthse -->

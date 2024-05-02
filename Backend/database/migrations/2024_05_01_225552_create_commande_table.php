@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('mot_de_passe');
-            $table->unsignedBigInteger('id_panier')->nullable();
-            $table->unsignedBigInteger('id_commande')->nullable();
+            $table->date('date_commande');
+            $table->string('statut');
+            $table->float('total');
             $table->timestamps();
         });
     }
@@ -27,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('commande');
     }
 };
-
-
-//DROP DATABASE project_synthse -->
