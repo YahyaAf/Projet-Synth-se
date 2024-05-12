@@ -16,13 +16,21 @@ class Commande extends Model
         'statut',
         'total'
     ];
+
+    /**
+     * Get the user that owns the commande.
+     */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'id_utilisateur');
     }
 
+    /**
+     * Get the produits for the commande.
+     */
     public function produits()
     {
-        return $this->belongsToMany(Produit::class, 'produit_id');
+        return $this->belongsToMany(Produit::class, 'commande_produit', 'id_commande', 'id_produit')
+            ->withPivot('quantite');
     }
 }
