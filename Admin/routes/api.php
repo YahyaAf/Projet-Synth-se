@@ -25,11 +25,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('users', UserController::class);
 
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::resource('admin/commandes', commandeController::class);
-});
+// Route::middleware(['auth:admin'])->group(function () {
+//     Route::resource('admin/commandes', commandeController::class);
+// });
+Route::resource('admin/commandes', commandeController::class);
 
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::resource('admin/paniers', paniersController::class);
-});
+// Route::middleware(['auth:admin'])->group(function () {
+//     Route::resource('admin/paniers', paniersController::class);
+// });
+Route::resource('admin/paniers', paniersController::class);
