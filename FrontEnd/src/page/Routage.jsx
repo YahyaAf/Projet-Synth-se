@@ -6,6 +6,7 @@ import Signup from './Signup'
 import Home from './Home'
 import Products from './Products'
 import Contact from './Contact'
+import AddToCard from './AddToCard'
 
 export default function Routage() {
   return (
@@ -18,6 +19,7 @@ export default function Routage() {
                 <Route path='/signup' element={<Signup />}/>
                 <Route path='/products' element={<Products />}/>
                 <Route path='/contact' element={<Contact />}/>
+                <Route path='/addToCard' element={<AddToCard />}/>
               </Route>
            </Routes>
          </BrowserRouter>
