@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('nom');
             $table->string('email')->unique();
             $table->string('mot_de_passe');
-            $table->unsignedBigInteger('id_panier')->nullable();
-            $table->unsignedBigInteger('id_commande')->nullable();
             $table->timestamps();
         });
     }
