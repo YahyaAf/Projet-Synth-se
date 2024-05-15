@@ -1,50 +1,203 @@
-import React from 'react'
-
+import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './home.css';
+import { GoStarFill } from "react-icons/go";
 export default function Home() {
-  return (
+  return ( 
     <>
-<div id="default-carousel" class="relative w-full" data-carousel="slide">
-    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://fakhar.shop/wp-content/uploads/2023/10/6-300x300.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+    <div>
+    <Carousel interval={1000} >
+    <Carousel.Item>
+      <img style={{height:'90vh'}}
+        className="d-block w-100"
+        src= "https://img.freepik.com/fotos-premium/proceso-primer-plano-alfarero-haciendo-vasija-barro_1029375-3390.jpg"
+        alt="First slide"
+      />
+      <Carousel.Caption className='top-1/2 transform -translate-y-1/2'>
+        <h3 className='text-7xl'>Bienvenue sur Fakhar Shop</h3>
+        <button className="bg-stone-600 text-white py-2 px-4 rounded-md mt-10">Produit</button>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img style={{height:'90vh'}}
+        className="d-block w-100"
+        src="https://img.freepik.com/photos-premium/potter-sculpte-vase-tour-potier_159160-682.jpg"
+        alt="Second slide"
+      />
+
+      <Carousel.Caption  className='top-1/2 transform -translate-y-1/2'>
+      <h3 className='text-7xl'>Bienvenue sur Fakhar Shop</h3>
+      <button className="bg-stone-600 text-white py-2 px-4 rounded-md mt-10">Produit</button>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img style={{height:'90vh'}}
+        className="d-block w-100"
+        src="https://t3.ftcdn.net/jpg/00/88/71/94/360_F_88719494_WU7zwHT7v3CKCkZpHCQuWkWL9hcJMjJi.jpg"
+        alt="Third slide"
+      />
+      <Carousel.Caption  className='top-1/2 transform -translate-y-1/2'>
+      <h3 className='text-7xl'>Bienvenue sur Fakhar Shop</h3>
+      <button className=" bg-zinc-500 text-white py-2 px-4 rounded-md mt-10">Produit</button> 
+      </Carousel.Caption>
+    </Carousel.Item>
+  </Carousel>
+  </div>
+  {/* card */}
+  
+  <h1 className="text-4xl text-center pt-10">Produits populaires</h1>
+	<section>
+		<div class="container ">
+			<div class="card">
+				<div class="content">
+					<div class="imgBx">
+						<img src="https://fakhar.shop/wp-content/uploads/2021/04/3-300x300.jpg"/>
+					</div>
+					<div class="contentBx">
+						<h3>PLAT CARRÉ<br/></h3>
+					</div>
+				</div>
+				<ul class="sci">
+					
+					<li>
+						<a href=""><button>voir les Produit</button></a>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="card">
+				<div class="content">
+					<div class="imgBx">
+						<img src="https://fakhar.shop/wp-content/uploads/2021/04/1-300x300.jpg"/>
+					</div>
+					<div class="contentBx">
+						<h3>PLAT COUSCOUS<br/></h3>
+					</div>
+				</div>
+				<ul class="sci">
+					
+					<li>
+						<a href=""><button>voir les Produit</button></a>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="card">
+				<div class="content">
+					<div class="imgBx">
+						<img src="https://fakhar.shop/wp-content/uploads/2021/04/2-300x300.jpg"/>
+					</div>
+					<div class="contentBx">
+						<h3>PLATEAU DE FRUITS SECS<br/></h3>
+					</div>
+				</div>
+				<ul class="sci">
+					
+					<li>
+          <a href=""><button>voir les Produit</button></a>
+					</li>
+				
+				</ul>
+			</div>
+      
+		</div>
+	</section>
+
+
+
+{/* 1 */}
+
+<div class="flex justify-center space-x-16">
+  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <img class="p-8 rounded-t-lg" src="https://fakhar.shop/wp-content/uploads/2023/10/6-300x300.jpg" alt="product image" />
+    </a>
+    <div class="px-5 pb-5">
+      <a href="#">
+        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">PLATS</h5>
+      </a>
+      <div class="flex items-center mt-2.5 mb-5">
+        <div class="flex items-center space-x-1 rtl:space-x-reverse">
+          <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+          <GoStarFill className="text-2xl"/>
+          <GoStarFill className="text-2xl"/>
+          <GoStarFill className="text-2xl"/>
+          </svg>
         </div>
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://fakhar.shop/wp-content/uploads/2023/10/7-300x300.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-        </div>
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://fakhar.shop/wp-content/uploads/2023/09/380416769_725329719609423_3236866217462378405_n.jpeg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-        </div>
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-4.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-        </div>
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="https://fakhar.shop/wp-content/uploads/2021/04/2-300x300.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
-        </div>
+        
+        
+      </div>
+   
+      <div class="flex items-center justify-between">
+        <span class="text-2xl font-bold text-gray-900 dark:text-white">449 DH</span>
+        
+        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">voir le Produit</a>
+      </div>
     </div>
-    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+  </div>
+{/* 2 */}
+  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <img class="p-8 rounded-t-lg" src="https://fakhar.shop/wp-content/uploads/2023/10/5.jpg" alt="product image" />
+    </a>
+    <div class="px-5 pb-5">
+      <a href="#">
+        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">SALADIER</h5>
+      </a>
+      <div class="flex items-center mt-2.5 mb-5">
+        <div class="flex items-center space-x-1 rtl:space-x-reverse">
+          <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+          <GoStarFill className="text-2xl"/>
+          </svg>
+        </div>
+        
+        
+      </div>
+   
+      <div class="flex items-center justify-between">
+        <span class="text-2xl font-bold text-gray-900 dark:text-white">449 DH</span>
+        
+        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">voir le Produit</a>
+      </div>
     </div>
-    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-    </button>
-    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-    </button>
+  </div>
+  </div>
+
+  {/* 3 */}
+  <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+     <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+      <img class="p-8 rounded-t-lg" src="https://fakhar.shop/wp-content/uploads/2023/10/7-300x300.jpg" alt="product image" />
+    </a>
+    <div class="px-5 pb-5">
+      <a href="#">
+        <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white text-center">SOUPIÈRES</h5>
+      </a>
+      <div class="flex items-center mt-2.5 mb-5">
+        <div class="flex items-center space-x-1 rtl:space-x-reverse">
+          <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+          <GoStarFill className="text-2xl"/>
+          </svg>
+        </div>
+        
+        
+      </div>
+   
+      <div class="flex items-center justify-between">
+        <span class="text-2xl font-bold text-gray-900 dark:text-white">449 DH</span>
+        
+        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">voir le Produit</a>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
-    </>
-  )
+
+
+
+
+  </>
+  );
 }
