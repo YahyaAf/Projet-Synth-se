@@ -33,4 +33,4 @@ class Commande extends Model
         return $this->belongsToMany(Produit::class, 'commande_produit', 'id_commande', 'id_produit')
             ->withPivot('quantite');
     }
-}
+}    

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('mot_de_passe');
-            $table->timestamps();
+        Schema::table('produits', function (Blueprint $table) {
+            $table->string('image');
         });
     }
 
@@ -25,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('produits', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 };
-
-
-//DROP DATABASE project_synthse -->

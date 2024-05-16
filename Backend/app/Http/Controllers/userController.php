@@ -50,7 +50,7 @@ class userController extends Controller
         $user = User::create([
             'nom' => $request->input('nom'),
             'email' => $request->input('email'),
-            'mot_de_passe' => bcrypt($request->input('mot_de_passe')),
+            'mot_de_passe' => Hash::make($request->input('mot_de_passe')),
         ]);
 
         // Generate token
