@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const Produits = () => {
-  const [produits, setProduits] = useState([]);
-  const [form, setForm] = useState({
-    nom: '',
-    description: '',
-    prix: '',
-  });
+
+export default function Produit() {
+    const [produits, setProduits] = useState([]);
+    const [form, setForm] = useState({
+        nom: '',
+        description: '',
+        prix: '',
+    });
 
   useEffect(() => {
     fetchProduits();
@@ -116,5 +117,3 @@ const Produits = () => {
     </div>
   );
 };
-
-export default Produits;
