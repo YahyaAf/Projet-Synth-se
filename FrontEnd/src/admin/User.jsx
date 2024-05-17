@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import React from 'react'
-
 export default function User() {
     const [users, setUsers] = useState([]);
     const [form, setForm] = useState({
