@@ -1,43 +1,140 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import { Fragment, useState } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
-export default function Header() {
-  return (
-    <header >
-    <nav className=" border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800  bg-stone-600 text-dark p-4">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <Link to="/" className="flex items-center">
-                <img src="https://fakhar.shop/wp-content/uploads/2023/09/Fakhar-1.png" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                
-            </Link>
-            <div className="flex items-center lg:order-2">
-                <Link to="/login" className="text-white  dark:text-dark  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</Link>
-                <Link to="/signup" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Register</Link>
-                <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-                    <span className="sr-only">Open main menu</span>
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
-                    <svg className="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
-                </button>
-            </div>
-            <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                    <li>
-                        <Link to="/home" className="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-dark" aria-current="page">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/products" className=" block py-2 pr-4 pl-3 text-white  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-dark dark:hover:bg-gray-700 dark:hover:text-dark lg:dark:hover:bg-transparent dark:border-gray-700">Products</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact" className="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-dark dark:hover:bg-gray-700 dark:hover:text-dark lg:dark:hover:bg-transparent dark:border-gray-700">Contact</Link>
-                    </li>
-                    <li>
-                        <Link to="/addToCard" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Paniers</Link>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-  )
+const initialNavigation = [
+  { name: 'Home', href: '/home', current: false },
+  { name: 'Product', href: '/products', current: false },
+  { name: 'Contact', href: '/contact', current: false },
+  { name: 'Paniers', href: '/addToCard', current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
 }
 
+export default function Header() {
+  const [navigation, setNavigation] = useState(initialNavigation);
+  const location = useLocation();
+
+  const handleNavClick = (name) => {
+    setNavigation(navigation.map((item) =>
+      item.name === name ? { ...item, current: true } : { ...item, current: false }
+    ));
+  };
+
+  const handleLinkClick = () => {
+    setNavigation(navigation.map((item) => ({ ...item, current: false })));
+  };
+
+  return (
+    <Disclosure as="nav" className="">
+      {({ open }) => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button */}
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <h1 className='text-orange-300 font-bold text-xl'>
+                    <Link to='/home' onClick={handleLinkClick}>Fakher</Link>
+                  </h1>
+                </div>
+                <div className="hidden sm:flex sm:flex-1 sm:justify-center sm:ml-6">
+                  <div className="flex space-x-4">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={() => handleNavClick(item.name)}
+                        className={classNames(
+                          item.current ? 'border-b-2 border-orange-300 text-orange-300' : '',
+                          'px-3 py-2 text-sm font-medium'
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className="div">
+                  <NavLink
+                    className={({ isActive }) =>
+                      "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
+                    }
+                    to="/signup"
+                    onClick={handleLinkClick}
+                  >
+                    Signup
+                  </NavLink>
+
+                  <NavLink
+                    className={({ isActive }) =>
+                      "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
+                    }
+                    to="/login"
+                    onClick={handleLinkClick}
+                  >
+                    Login
+                  </NavLink>
+                </div>
+
+                {/* Profile dropdown */}
+                <Menu as="div" className="relative ml-3">
+                  <div>
+                    {/* Add dropdown content here if needed */}
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    {/* Add transition content here if needed */}
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pb-3 pt-2">
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  href={item.href}
+                  onClick={() => handleNavClick(item.name)}
+                  className={classNames(
+                    item.current ? 'bg-orange-300 text-white' : 'text-orange-300',
+                    'block rounded-md px-3 py-2 text-base font-medium'
+                  )}
+                  aria-current={item.current ? 'page' : undefined}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  );
+}
