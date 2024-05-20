@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 
 export const AuthContext = createContext();
 
@@ -29,11 +29,6 @@ export const AuthContextProvider = ({ children }) => {
         };
 
         checkUser(); // Check user on initial load
-
-        // Set an interval to check user periodically
-        const intervalId = setInterval(checkUser, 1000); // Check every second
-
-        return () => clearInterval(intervalId); // Clean up the interval on component unmount
     }, []);
 
     return (
