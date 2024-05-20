@@ -25,7 +25,7 @@ class userController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->mot_de_passe, $user->mot_de_passe)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Incorrect credentails'], 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
