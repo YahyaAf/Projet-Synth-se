@@ -2,59 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produit;
-use App\Models\Produit as ModelsProduit;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $produit = Produit::all();
-        return response()->json($produit);
+        $produits = Produit::all();
+        return response()->json($produits);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $form = $request->all();
-        $user = Produit::create($form);
-        return response()->json($user);
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string',
+            'prix' => 'required|numeric',
+            'quantite_stock' => 'required|numeric',
+            'image' => 'nullable|string'  // Assuming the image is a string path or URL
+        ]);
+
+        try {
+            $produit = Produit::create($validatedData);
+            return response()->json($produit, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(produit $produit)
+    public function show(Produit $produit)
     {
         return response()->json($produit);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, produit $produit)
+    public function update(Request $request, Produit $produit)
     {
-        $form = $request->all();
-        $produit->fill($form)->save();
-        return response()->json($produit);
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'required|string',
+            'prix' => 'required|numeric',
+            'quantite_stock' => 'required|numeric',
+            'image' => 'nullable|string'
+        ]);
+
+        try {
+            $produit->fill($validatedData)->save();
+            return response()->json($produit);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(produit $produit)
+    public function destroy(Produit $produit)
     {
-        $produit->delete();
-        return response()->json('the produit deleted');
+        try {
+            $produit->delete();
+            return response()->json(['message' => 'Produit supprimé avec succès']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

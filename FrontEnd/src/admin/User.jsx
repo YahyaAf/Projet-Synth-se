@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importation du CSS de Bootstrap
 
 export default function User() {
     const [users, setUsers] = useState([]);
@@ -78,41 +79,82 @@ export default function User() {
   
     return (
       <div>
-        <h1>Users</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="nom"
-            placeholder="Nom"
-            value={form.nom}
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="mot_de_passe"
-            placeholder="Mot de passe"
-            value={form.mot_de_passe}
-            onChange={handleChange}
-          />
-          <button type="submit">Add User</button>
-        </form>
+        <div class="container">
+            <h1 class="display-4 text-center my-4">Users</h1>
+        </div>
+        <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
+      <div className="form-group">
+        <label htmlFor="nom">Nom</label>
+        <input
+          type="text"
+          className="form-control"
+          id="nom"
+          name="nom"
+          placeholder="Nom"
+          value={form.nom}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="mot_de_passe">Mot de passe</label>
+        <input
+          type="password"
+          className="form-control"
+          id="mot_de_passe"
+          name="mot_de_passe"
+          placeholder="Mot de passe"
+          value={form.mot_de_passe}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit" className="btn btn-primary mt-2">
+        Add User
+      </button>
+    </form>
   
-        <ul>
+    <table className="table table-bordered table-striped" >
+      <thead className="thead-dark">
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+        </thead>
           {users.map((user) => (
-            <li key={user.id}>
-              {user.nom} - {user.email}
-              <button onClick={() => handleDelete(user.id)}>Delete</button>
-              <button onClick={() => handleUpdate(user.id)}>Update</button>
-            </li>
+            <tbody key={user.id}>
+              <tr>
+                <td>{user.nom}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm mr-2"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => handleUpdate(user.id)}
+                  >
+                    Update
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           ))}
-        </ul>
+          </table>
       </div>
     );
   };
