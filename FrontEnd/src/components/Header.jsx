@@ -1,7 +1,9 @@
 import { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon,UserIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import useAuthContext from '../hooks/useAuthContext';
+import { useLogout } from '../hooks/useLogout';
 
 const initialNavigation = [
   { name: 'Home', href: '/home', current: false },
@@ -10,6 +12,7 @@ const initialNavigation = [
   { name: 'Paniers', href: '/addToCard', current: false },
 ];
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -17,7 +20,8 @@ function classNames(...classes) {
 export default function Header() {
   const [navigation, setNavigation] = useState(initialNavigation);
   const location = useLocation();
-
+  const {user} = useAuthContext()
+  const {logout} = useLogout()
   const handleNavClick = (name) => {
     setNavigation(navigation.map((item) =>
       item.name === name ? { ...item, current: true } : { ...item, current: false }
@@ -27,7 +31,9 @@ export default function Header() {
   const handleLinkClick = () => {
     setNavigation(navigation.map((item) => ({ ...item, current: false })));
   };
-
+const handleLogout = () =>{
+  logout()
+}
   return (
     <Disclosure as="nav" className="">
       {({ open }) => (
@@ -72,31 +78,38 @@ export default function Header() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="div">
-                  <NavLink
-                    className={({ isActive }) =>
-                      "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
-                    }
-                    to="/signup"
-                    onClick={handleLinkClick}
-                  >
-                    Signup
-                  </NavLink>
-
-                  <NavLink
-                    className={({ isActive }) =>
-                      "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
-                    }
-                    to="/login"
-                    onClick={handleLinkClick}
-                  >
-                    Login
-                  </NavLink>
+                {!user &&
+                <>
+                    <NavLink
+                      className={({ isActive }) =>
+                        "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
+                      }
+                      to="/signup"
+                      onClick={handleLinkClick}
+                    >
+                      Signup
+                    </NavLink>
+                    <NavLink
+                      className={({ isActive }) =>
+                        "rounded-md px-3 py-2 text-base font-medium " + (isActive ? "text-orange-300 " : "text-black")
+                      }
+                      to="/login"
+                      onClick={handleLinkClick}
+                    >
+                      Login
+                    </NavLink>
+                    </>
+                }
                 </div>
-
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                
+                {user && <div>
+                  <Menu as="div" className="relative ml-3">
                   <div>
-                    {/* Add dropdown content here if needed */}
+                    <Menu.Button className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ">
+                      <span className="absolute -inset-1.5" />
+                      <span className="sr-only">Open user menu</span>
+                      <UserIcon class="h-6 w-6 text-black-500 bg-gray-300 rounded-full" />
+                    </Menu.Button>
                   </div>
                   <Transition
                     as={Fragment}
@@ -107,9 +120,33 @@ export default function Header() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    {/* Add transition content here if needed */}
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            user: {user.user.nom}
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <span
+                            onClick={handleLogout}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Sign out
+                          </span>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
                   </Transition>
                 </Menu>
+
+                </div>
+                }
               </div>
             </div>
           </div>

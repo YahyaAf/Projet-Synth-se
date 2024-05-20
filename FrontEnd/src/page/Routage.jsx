@@ -1,25 +1,43 @@
 import React from 'react'
-import { BrowserRouter,Route,Routes } from 'react-router-dom'
+import { BrowserRouter,Navigate,Route,Routes } from 'react-router-dom'
 import Layout from '../components/Layout'
-import Login from './Login'
-import Signup from './Signup'
-import Home from './Home'
-import Products from './Products'
-import Contact from './Contact'
-import AddToCard from './AddToCard'
+import Login from './Login.jsx'
+import Signup from './Signup.jsx'
+import Home from './Home.jsx'
+import Products from './Products.jsx'
+import Contact from './Contact.jsx'
+import AddToCard from './AddToCard.jsx'
+import useAuthContext from '../hooks/useAuthContext.js'
 
 export default function Routage() {
+  const {user}=useAuthContext()
   return (
     <>
         <BrowserRouter>
             <Routes>
               <Route path='/' element={<Layout />}>
                 <Route path='/home' element={<Home/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/signup' element={<Signup />}/>
-                <Route path='/products' element={<Products />}/>
-                <Route path='/contact' element={<Contact />}/>
-                <Route path='/addToCard' element={<AddToCard />}/>
+
+                <Route
+                path='/login'
+                element={!user ?<Login/>:<Navigate to="/home"/>}
+                />
+                <Route
+                path='/signup'
+                element={!user ? <Signup /> :<Navigate to="/home"/>}
+                />
+                <Route
+                path='/products'
+                element={user ? <Products /> : <Navigate to="/login"/>}
+                />
+                <Route
+                path='/contact'
+                element={user ? <Contact /> : <Navigate to="/login"/>}
+                />
+                <Route
+                path='/addToCard'
+                element={user ? <AddToCard /> : <Navigate to="/login"/>}
+                />
               </Route>
            </Routes>
          </BrowserRouter>
