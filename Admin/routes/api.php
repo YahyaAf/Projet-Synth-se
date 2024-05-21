@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\commandeController;
 use App\Http\Controllers\paniersController;
 use App\Http\Controllers\ProduitController;
@@ -37,3 +39,16 @@ Route::resource('admin/commandes', commandeController::class);
 //     Route::resource('admin/paniers', paniersController::class);
 // });
 Route::resource('admin/paniers', paniersController::class);
+
+Route::post('admin/login', [AdminController::class, 'login']);
+Route::post('admin/register', [AdminController::class, 'signup']);
+
+Route::post('/admin/login', [AuthController::class, 'login']);
+Route::post('/admin/register', [AuthController::class, 'register']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/admins', [AdminController::class, 'index']);
+    Route::post('/admins', [AdminController::class, 'store']);
+    Route::put('/admins/{id}', [AdminController::class, 'update']);
+    Route::delete('/admins/{id}', [AdminController::class, 'destroy']);
+});

@@ -8,6 +8,8 @@ export default function User() {
       email: '',
       mot_de_passe: '',
     });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editUserId, setEditUserId] = useState(null);
   
     useEffect(() => {
       fetchUsers();
@@ -33,6 +35,14 @@ export default function User() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+      if (isEditing) {
+        handleUpdate(editUserId);
+      } else {
+        handleAdd();
+      }
+    };
+
+    const handleAdd = async () => {
       try {
         const response = await fetch('http://localhost:8000/api/users', {
           method: 'POST',
@@ -72,91 +82,101 @@ export default function User() {
         const updatedUser = await response.json();
         setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
         setForm({ nom: '', email: '', mot_de_passe: '' });
+        setIsEditing(false);
+        setEditUserId(null);
       } catch (error) {
         console.error('Error updating user:', error);
       }
     };
+
+    const handleEdit = (user) => {
+      setForm({
+        nom: user.nom,
+        email: user.email,
+        mot_de_passe: '',
+      });
+      setIsEditing(true);
+      setEditUserId(user.id);
+    };
   
     return (
       <div>
-        <div class="container">
-            <h1 class="display-4 text-center my-4">Users</h1>
+        <div className="container">
+            <h1 className="display-4 text-center my-4">Users</h1>
         </div>
         <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
-      <div className="form-group">
-        <label htmlFor="nom">Nom</label>
-        <input
-          type="text"
-          className="form-control"
-          id="nom"
-          name="nom"
-          placeholder="Nom"
-          value={form.nom}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="mot_de_passe">Mot de passe</label>
-        <input
-          type="password"
-          className="form-control"
-          id="mot_de_passe"
-          name="mot_de_passe"
-          placeholder="Mot de passe"
-          value={form.mot_de_passe}
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit" className="btn btn-primary mt-2">
-        Add User
-      </button>
-    </form>
+          <div className="form-group">
+            <label htmlFor="nom">Nom</label>
+            <input
+              type="text"
+              className="form-control"
+              id="nom"
+              name="nom"
+              placeholder="Nom"
+              value={form.nom}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="mot_de_passe">Mot de passe</label>
+            <input
+              type="password"
+              className="form-control"
+              id="mot_de_passe"
+              name="mot_de_passe"
+              placeholder="Mot de passe"
+              value={form.mot_de_passe}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary mt-2">
+            {isEditing ? 'Update User' : 'Add User'}
+          </button>
+        </form>
   
-    <table className="table table-bordered table-striped" >
-      <thead className="thead-dark">
+        <table className="table table-bordered table-striped">
+          <thead className="thead-dark">
               <tr>
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Action</th>
               </tr>
-        </thead>
+          </thead>
+          <tbody>
           {users.map((user) => (
-            <tbody key={user.id}>
-              <tr>
-                <td>{user.nom}</td>
-                <td>{user.email}</td>
-                <td>
-                  <button
-                    className="btn btn-danger btn-sm mr-2"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-warning btn-sm"
-                    onClick={() => handleUpdate(user.id)}
-                  >
-                    Update
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            <tr key={user.id}>
+              <td>{user.nom}</td>
+              <td>{user.email}</td>
+              <td>
+                <button
+                  className="btn btn-danger btn-sm mr-2"
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="btn btn-warning btn-sm"
+                  onClick={() => handleEdit(user)}
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
           ))}
-          </table>
+          </tbody>
+        </table>
       </div>
     );
   };
-  
- 
