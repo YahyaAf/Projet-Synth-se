@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\paniersController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/product', productController::class . "@index");
     Route::get('/product/{produit}', productController::class . "@show");
+    Route::get("/panier", [paniersController::class, 'index']);
 });
 
 
@@ -29,4 +31,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/signup', userController::class . "@signup");
 Route::post('/login', userController::class . "@login");
+
 //Route::post('/logout', userController::class . "@logout");
