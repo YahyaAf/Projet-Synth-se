@@ -3,29 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Admin extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable
 {
+    use HasApiTokens, Notifiable;
+
     protected $fillable = [
-        'nom', 'email', 'mot_de_passe',
+        'nom',
+        'email',
+        'mot_de_passe',
     ];
 
     protected $hidden = [
-        'mot_de_passe', 'remember_token',
+        'mot_de_passe',
+        'remember_token',
     ];
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-    public function setPasswordAttribute($password)
+    public function setMotDePasseAttribute($password)
     {
         $this->attributes['mot_de_passe'] = bcrypt($password);
     }

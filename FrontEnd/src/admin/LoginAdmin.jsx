@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const LoginAdmin = () => {
+const AdminLogin = () => {
     const [email, setEmail] = useState('');
-    const [motDePasse, setMotDePasse] = useState('');
-    const navigate = useNavigate();
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const handleLogin = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/admin/login', {
+            const response = await fetch('http://your-server-url/api/admin/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, mot_de_passe: motDePasse }),
+                body: JSON.stringify({
+                    email: email,
+                    mot_de_passe: password
+                }),
             });
 
             if (!response.ok) {
@@ -22,26 +23,30 @@ const LoginAdmin = () => {
             }
 
             const data = await response.json();
-            localStorage.setItem('token', data.token);
-            navigate('/admins');
+            const token = data.token;
+            // Store the token in local storage or context for future authenticated requests
+            console.log('Login successful. Token:', token);
         } catch (error) {
-            console.error('Login error', error);
+            setError('Invalid email or password');
+            console.error('Login failed:', error);
         }
     };
 
     return (
-        <form onSubmit={handleLogin}>
+        <div>
+            <h2>Admin Login</h2>
             <div>
-                <label>Email</label>
+                <label>Email:</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div>
-                <label>Password</label>
-                <input type="password" value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} />
+                <label>Password:</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <button type="submit">Login</button>
-        </form>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <button onClick={handleLogin}>Login</button>
+        </div>
     );
 };
 
-export default LoginAdmin;
+export default AdminLogin;

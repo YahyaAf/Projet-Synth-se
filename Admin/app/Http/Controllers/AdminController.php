@@ -7,25 +7,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function login(Request $request)
     {
-        return response()->json(Admin::all());
+        $credentials = $request->only('email', 'mot_de_passe');
+
+        $admin = Admin::where('email', $credentials['email'])->first();
+
+        if ($admin && Hash::check($credentials['mot_de_passe'], $admin->mot_de_passe)) {
+            $token = $admin->createToken('AdminToken')->plainTextToken;
+            return response()->json(['token' => $token], 200);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins',
-            'mot_de_passe' => 'required|string|min:8',
+            'mot_de_passe' => 'required|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $admin = Admin::create([
@@ -34,38 +42,59 @@ class AdminController extends Controller
             'mot_de_passe' => Hash::make($request->mot_de_passe),
         ]);
 
-        return response()->json($admin, 201);
+        return response()->json(['admin' => $admin], 201);
+    }
+
+    public function index()
+    {
+        $admins = Admin::all();
+        return response()->json(['admins' => $admins], 200);
+    }
+
+    public function show($id)
+    {
+        $admin = Admin::find($id);
+        if (!$admin) {
+            return response()->json(['error' => 'Admin not found'], 404);
+        }
+        return response()->json(['admin' => $admin], 200);
     }
 
     public function update(Request $request, $id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = Admin::find($id);
+        if (!$admin) {
+            return response()->json(['error' => 'Admin not found'], 404);
+        }
 
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins,email,' . $id,
-            'mot_de_passe' => 'nullable|string|min:8',
+            'email' => 'required|string|email|max:255|unique:admins,email,' . $admin->id,
+            'mot_de_passe' => 'sometimes|required|string|min:6|confirmed',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $admin->nom = $request->nom;
         $admin->email = $request->email;
-        if ($request->mot_de_passe) {
+        if ($request->has('mot_de_passe')) {
             $admin->mot_de_passe = Hash::make($request->mot_de_passe);
         }
         $admin->save();
 
-        return response()->json($admin);
+        return response()->json(['admin' => $admin], 200);
     }
 
     public function destroy($id)
     {
-        $admin = Admin::findOrFail($id);
-        $admin->delete();
+        $admin = Admin::find($id);
+        if (!$admin) {
+            return response()->json(['error' => 'Admin not found'], 404);
+        }
 
-        return response()->json(['message' => 'Admin deleted successfully']);
+        $admin->delete();
+        return response()->json(['message' => 'Admin deleted successfully'], 200);
     }
 }
