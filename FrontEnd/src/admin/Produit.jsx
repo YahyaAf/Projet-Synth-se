@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Produit = () => {
+export default function Produit() {
   const [produits, setProduits] = useState([]);
   const [nom, setNom] = useState('');
   const [description, setDescription] = useState('');
@@ -189,4 +189,4 @@ const Produit = () => {
   );
 };
 
-export default Produit;
+

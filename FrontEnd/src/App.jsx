@@ -1,11 +1,13 @@
 import User from './admin/User';
 import Routage from './page/Routage';
+import Produit from './admin/Produit';
 
 function App() {
   return (
     <>
-      <Routage/>
-      
+      {/* <Produit/> */}
+      {/* <Routage /> */}
+      <User />
     </>
   );
 }
