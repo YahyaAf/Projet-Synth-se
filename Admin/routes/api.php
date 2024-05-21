@@ -41,14 +41,9 @@ Route::resource('admin/commandes', commandeController::class);
 Route::resource('admin/paniers', paniersController::class);
 
 Route::post('admin/login', [AdminController::class, 'login']);
-Route::post('admin/register', [AdminController::class, 'signup']);
+Route::post('admin/create', [AdminController::class, 'create']);
+Route::get('admin', [AdminController::class, 'index']);
+Route::get('admin/{id}', [AdminController::class, 'show']);
+Route::put('admin/{id}', [AdminController::class, 'update']);
+Route::delete('admin/{id}', [AdminController::class, 'destroy']);
 
-Route::post('/admin/login', [AuthController::class, 'login']);
-Route::post('/admin/register', [AuthController::class, 'register']);
-
-Route::middleware('auth:api')->group(function () {
-    Route::get('/admins', [AdminController::class, 'index']);
-    Route::post('/admins', [AdminController::class, 'store']);
-    Route::put('/admins/{id}', [AdminController::class, 'update']);
-    Route::delete('/admins/{id}', [AdminController::class, 'destroy']);
-});
