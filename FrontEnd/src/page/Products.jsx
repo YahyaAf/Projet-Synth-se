@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 
 export default function Products() {
   const [data, setData] = useState([]);
-
+  const {user} = useAuthContext()
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/api/product', {
-          method: 'GET'
+          method: 'GET',
+          headers: { "Authorization": `Bearer ${user.token}` }
         });
         if (response.ok) {
           const jsonData = await response.json();

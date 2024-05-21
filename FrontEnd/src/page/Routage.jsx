@@ -8,6 +8,7 @@ import Products from './Products.jsx'
 import Contact from './Contact.jsx'
 import AddToCard from './AddToCard.jsx'
 import useAuthContext from '../hooks/useAuthContext.js'
+import ProductDetails from './ProductDetails.jsx'
 
 export default function Routage() {
   const {user}=useAuthContext()
@@ -29,6 +30,10 @@ export default function Routage() {
                 <Route
                 path='/products'
                 element={user ? <Products /> : <Navigate to="/login"/>}
+                />
+                <Route
+                path='/productDetails/:id'
+                element={user ? <ProductDetails/>: <Navigate to="/login"/>}
                 />
                 <Route
                 path='/contact'

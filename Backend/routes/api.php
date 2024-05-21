@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('/hello', function () {
-    return 'hello world';
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/product', productController::class . "@index");
+    Route::get('/product/{produit}', productController::class . "@show");
 });
 
-Route::get('/product', productController::class . "@index");
-Route::get('/product/{produit}', productController::class . "@show");
+
+
 
 
 Route::post('/signup', userController::class . "@signup");
