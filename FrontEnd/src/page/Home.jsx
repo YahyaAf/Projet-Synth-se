@@ -4,7 +4,7 @@ export default function Home() {
 
     <div className="bg-gray-100 pt-10 flex justify-center ">
       <div className="p-10 rounded-lg flex flex-col md:flex-row items-center justify-between w-full max-w-5xl">
-        <div className="text-center md:text-left md:max-w-lg">
+        <div className="md:text-left md:max-w-lg">
           <h1 className="text-orange-500 text-4xl font-bold mb-4">Fakhar Shop</h1>
           <h3 className="text-2xl md:text-6xl font-bold text-gray-800">Beautifully designed and modern</h3>
           <h4 className="mt-5 text-gray-600">Pure Moroccan tradition passed down from generation to generation, a true art of living!</h4>
