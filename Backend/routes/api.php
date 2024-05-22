@@ -28,7 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+Route::delete("/panier/{id}", [PaniersController::class, 'destroy']);
 
+Route::post("/panier", [paniersController::class, 'store']);
 
 Route::post('/signup', userController::class . "@signup");
 Route::post('/login', userController::class . "@login");

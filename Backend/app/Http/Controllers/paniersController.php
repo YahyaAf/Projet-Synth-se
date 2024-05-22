@@ -17,7 +17,7 @@ class paniersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $paniers = Panier::where("user_id", $user->id)->get();
+        $paniers = Panier::with('product')->where("user_id", $user->id)->get();
         return response()->json($paniers);
     }
 
@@ -55,9 +55,11 @@ class paniersController extends Controller
      * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Panier $panier)
+    public function destroy($id)
     {
+        $panier = Panier::findOrFail($id);
         $panier->delete();
-        return response()->json(null, 204);
+
+        return response()->json("The panier deleted!", 200);
     }
 }

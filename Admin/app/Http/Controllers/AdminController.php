@@ -15,8 +15,11 @@ class AdminController extends Controller
         $credentials = $request->only('email', 'mot_de_passe');
 
         $admin = Admin::where('email', $credentials['email'])->first();
+        if (!$admin) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
 
-        if ($admin && Hash::check($credentials['mot_de_passe'], $admin->mot_de_passe)) {
+        if (Hash::check($credentials['mot_de_passe'], $admin->mot_de_passe)) {
             $token = $admin->createToken('AdminToken')->plainTextToken;
             return response()->json(['token' => $token], 200);
         }
