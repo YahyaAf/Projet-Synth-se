@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\paniersController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\userController;
@@ -35,3 +36,4 @@ Route::post('/signup', userController::class . "@signup");
 Route::post('/login', userController::class . "@login");
 
 //Route::post('/logout', userController::class . "@logout");
+Route::apiResource('contacts', ContactController::class);
