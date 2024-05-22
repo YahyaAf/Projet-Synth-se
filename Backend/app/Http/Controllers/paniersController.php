@@ -31,12 +31,24 @@ class paniersController extends Controller
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
+            'produit_id' => 'required|exists:produits,id',
             // Add validation rules for other fields if needed
         ]);
 
+        // Check if the product is already in the user's panier
+        $existingPanier = Panier::where('user_id', $request->user_id)
+            ->where('produit_id', $request->produit_id)
+            ->first();
+
+        if ($existingPanier) {
+            return response()->json(['message' => 'The Product is already in the card'], 400);
+        }
+
+        // If not, create a new panier entry
         $panier = Panier::create($request->all());
         return response()->json($panier, 201);
     }
+
 
     /**
      * Display the specified panier.

@@ -9,6 +9,7 @@ import Contact from './Contact.jsx'
 import AddToCard from './AddToCard.jsx'
 import useAuthContext from '../hooks/useAuthContext.js'
 import ProductDetails from './ProductDetails.jsx'
+import Commande from './Commande.jsx'
 import AdminHome from '../admin/Home.jsx'
 import User from '../admin/User.jsx'
 import Produit from '../admin/Produit.jsx'
@@ -22,7 +23,7 @@ export default function Routage() {
         <BrowserRouter>
             <Routes>
               <Route path='/' element={<Layout />}>
-                <Route path='/home' element={<Home/>}/>
+                <Route index element={<Home/>}/>
 
                 <Route
                 path='/login'
@@ -47,6 +48,10 @@ export default function Routage() {
                 <Route
                 path='/addToCard'
                 element={user ? <AddToCard /> : <Navigate to="/login"/>}
+                />
+                <Route
+                path='/commaande'
+                element={user ? <Commande/> : <Navigate to="/login"/>}
                 />
               </Route>
 

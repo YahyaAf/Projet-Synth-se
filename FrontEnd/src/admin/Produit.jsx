@@ -91,110 +91,101 @@ export default function Produit() {
   };
 
   return (
-    <div className="mt-5">
-  {error && <p className="alert alert-danger">{error}</p>}
-  <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded shadow-sm bg-light">
-    <h2 className="mb-4">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>
-    <div className="form-group">
-      <label htmlFor="nom">Nom</label>
-      <input
-        type="text"
-        className="form-control"
-        id="nom"
-        name="nom"
-        value={nom}
-        onChange={(e) => setNom(e.target.value)}
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="description">Description</label>
-      <input
-        type="text"
-        className="form-control"
-        id="description"
-        name="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="prix">Prix</label>
-      <input
-        type="number"
-        className="form-control"
-        id="prix"
-        name="prix"
-        value={prix}
-        onChange={(e) => setPrix(e.target.value)}
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="quantite_stock">Quantité en stock</label>
-      <input
-        type="number"
-        className="form-control"
-        id="quantite_stock"
-        name="quantite_stock"
-        value={quantiteStock}
-        onChange={(e) => setQuantiteStock(e.target.value)}
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="image">Image</label>
-      <input
-        type="text"
-        className="form-control"
-        id="image"
-        name="image"
-        value={image}
-        onChange={(e) => setImage(e.target.value)}
-        required
-      />
-    </div>
-    <button type="submit" className="btn btn-primary mt-2">
-      {selectedProduit ? 'Mettre à jour' : 'Ajouter'}
-    </button>
-    {selectedProduit && (
-      <button type="button" className="btn btn-secondary ml-2" onClick={resetForm}>
-        Annuler
-      </button>
-    )}
-  </form>
-
-  <div className="table-responsive">
-    <table className="table table-bordered table-striped">
-      <thead className="thead-dark">
-        <tr>
-          <th>Nom</th>
-          <th>Description</th>
-          <th>Prix (€)</th>
-          <th>Quantité en stock</th>
-          <th>Image</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {produits.map(produit => (
-          <tr key={produit.id}>
-            <td>{produit.nom}</td>
-            <td>{produit.description}</td>
-            <td>{produit.prix}</td>
-            <td>{produit.quantite_stock}</td>
-            <td>{produit.image}</td>
-            <td>
-              <button className="btn btn-warning mr-2" onClick={() => handleEdit(produit)}>Modifier</button>
-              <button className="btn btn-danger" onClick={() => handleDelete(produit.id)}>Supprimer</button>
-            </td>
+    <div className="">
+      {error && <p className="alert alert-danger">{error}</p>}
+      <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded shadow-sm bg-light">
+      <h2 className="mb-4">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>
+      <div className="form-group">
+        <label htmlFor="nom">Nom</label>
+        <input 
+          type="text" 
+          className="form-control" 
+          id="nom" 
+          name="nom" 
+          value={nom} 
+          onChange={(e) => setNom(e.target.value)} 
+          required 
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="description">Description</label>
+        <input 
+          type="text" 
+          className="form-control" 
+          id="description" 
+          name="description" 
+          value={description} 
+          onChange={(e) => setDescription(e.target.value)} 
+          required 
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="prix">Prix</label>
+        <input 
+          type="number" 
+          className="form-control" 
+          id="prix" 
+          name="prix" 
+          value={prix} 
+          onChange={(e) => setPrix(e.target.value)} 
+          required 
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="quantite_stock">Quantité en stock</label>
+        <input 
+          type="number" 
+          className="form-control" 
+          id="quantite_stock" 
+          name="quantite_stock" 
+          value={quantiteStock} 
+          onChange={(e) => setQuantiteStock(e.target.value)} 
+          required 
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="image">Image</label>
+        <input 
+          type="text" 
+          className="form-control" 
+          id="image" 
+          name="image" 
+          value={image} 
+          onChange={(e) => setImage(e.target.value)} 
+          required 
+        />
+      </div>
+      <button type="submit" className="btn btn-primary mt-2">{selectedProduit ? 'Mettre à jour' : 'Ajouter'}</button>
+      {selectedProduit && <button type="button" className="btn btn-secondary ml-2" onClick={resetForm}>Annuler</button>}
+    </form>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix (€)</th>
+            <th>Quantité en stock</th>
+            <th>Image</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+        </thead>
+        <tbody>
+          {produits.map(produit => (
+            <tr key={produit.id}>
+              <td>{produit.nom}</td>
+              <td>{produit.description}</td>
+              <td>{produit.prix}</td>
+              <td>{produit.quantite_stock}</td>
+              <td>{produit.image}</td>
+              <td>
+                <button className="btn btn-warning mr-2" onClick={() => handleEdit(produit)}>Modifier</button>
+                <button className="btn btn-danger" onClick={() => handleDelete(produit.id)}>Supprimer</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

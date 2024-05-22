@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import Loading from "./Loading";
 
 export default function AddToCart() {
   const { user } = useAuthContext();
   const [data, setData] = useState([]);
-
+  const [isLoading, setIsLoading]=useState(true)
   useEffect(() => {
     const fetchPanierData = async () => {
       try {
@@ -21,6 +22,8 @@ export default function AddToCart() {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchPanierData();
@@ -41,9 +44,15 @@ export default function AddToCart() {
       console.log(error);
     }
   }
-
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center" style={{ height: '100vh' }}>
+        <Loading type={'spin'} color={'gray'} />
+      </div>
+    );
+  }
   return (
-    <div className="mx-auto p-20">
+    <div className="mx-auto p-20" style={{minHeight:"400px"}}>
       {data.map((item) => (
         <div key={item.id_panier} className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
           <div className="flex items-center">
@@ -59,8 +68,10 @@ export default function AddToCart() {
         </div>
       ))}
       <div className="flex justify-end mt-6">
-        <button className="bg-brown-500 text-white py-2 px-4 rounded">
-          Valider la commande
+        <button 
+        
+        className="mt-5 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+          Cammande
         </button>
       </div>
     </div>
