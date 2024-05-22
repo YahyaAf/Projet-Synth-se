@@ -4,6 +4,7 @@ import Produit from './admin/Produit';
 import AdminLogin from './admin/LoginAdmin';
 import AdminManagement from './admin/CreateAdmin';
 import Dashbord from './admin/Dashbord';
+import Login from './page/Login';
 
 
 
@@ -16,6 +17,7 @@ function App() {
       {/* <User /> */}
       {/* <Dashbord /> */}
       <Routage />
+      {/* <AdminLogin /> */}
      
     </>
   );
