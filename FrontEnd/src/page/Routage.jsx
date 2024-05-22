@@ -10,6 +10,12 @@ import AddToCard from './AddToCard.jsx'
 import useAuthContext from '../hooks/useAuthContext.js'
 import ProductDetails from './ProductDetails.jsx'
 import Commande from './Commande.jsx'
+import AdminHome from '../admin/Home.jsx'
+import User from '../admin/User.jsx'
+import Produit from '../admin/Produit.jsx'
+import AdminManagement from '../admin/CreateAdmin.jsx'
+import AdminLayout from '../components/AdminLayout.jsx'
+
 export default function Routage() {
   const {user}=useAuthContext()
   return (
@@ -48,7 +54,15 @@ export default function Routage() {
                 element={user ? <Commande/> : <Navigate to="/login"/>}
                 />
               </Route>
+
+              <Route path='/admin' element={<AdminLayout />}>
+                <Route path='/admin/Home' element={<AdminHome/>} />
+                <Route path='/admin/user' element={<User/>} />
+                <Route path='/admin/produit' element={<Produit/>} />
+                <Route path='/admin/admins' element={<AdminManagement/>} />
+              </Route>
            </Routes>
+
          </BrowserRouter>
         </>
   )

@@ -122,100 +122,98 @@ const AdminManagement = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <h1 className="display-4 text-center my-4">Admin Management</h1>
-            <div className="row">
-                <div className="col-md-6">
-                    <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
-                        <h3 className="mb-4">{isEditing ? 'Edit Admin' : 'Create Admin'}</h3>
-                        <div className="form-group">
-                            <label htmlFor="nom">Nom</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="nom"
-                                value={nom}
-                                onChange={(e) => setNom(e.target.value)}
-                            />
-                            {errors.nom && <div className="text-danger">{errors.nom[0]}</div>}
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            {errors.email && <div className="text-danger">{errors.email[0]}</div>}
-                        </div>
-                        {!isEditing && (
-                            <>
-                                <div className="form-group">
-                                    <label htmlFor="password">Mot de passe</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                    {errors.mot_de_passe && <div className="text-danger">{errors.mot_de_passe[0]}</div>}
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="confirmPassword">Confirmer Mot de passe</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="confirmPassword"
-                                        value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
-                                    />
-                                    {errors.mot_de_passe_confirmation && <div className="text-danger">{errors.mot_de_passe_confirmation[0]}</div>}
-                                </div>
-                            </>
-                        )}
-                        <button type="submit" className="btn btn-primary mt-2">
-                            {isEditing ? 'Update Admin' : 'Add Admin'}
-                        </button>
-                    </form>
-                </div>
-                <div className="col-md-6">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {admins.map(admin => (
-                                <tr key={admin.id}>
-                                    <td>{admin.nom}</td>
-                                    <td>{admin.email}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-warning btn-sm mr-2"
-                                            onClick={() => handleEdit(admin.id)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="btn btn-danger btn-sm"
-                                            onClick={() => handleDelete(admin.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+        <div className="mt-5">
+    <h1 className="display-4 text-center my-4">Admin Management</h1>
+    <div className="p-4 border rounded bg-light mb-4">
+        <form onSubmit={handleSubmit}>
+            <h3 className="mb-4">{isEditing ? 'Edit Admin' : 'Create Admin'}</h3>
+            <div className="form-group">
+                <label htmlFor="nom">Nom</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="nom"
+                    value={nom}
+                    onChange={(e) => setNom(e.target.value)}
+                />
+                {errors.nom && <div className="text-danger">{errors.nom[0]}</div>}
             </div>
-        </div>
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && <div className="text-danger">{errors.email[0]}</div>}
+            </div>
+            {!isEditing && (
+                <>
+                    <div className="form-group">
+                        <label htmlFor="password">Mot de passe</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {errors.mot_de_passe && <div className="text-danger">{errors.mot_de_passe[0]}</div>}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="confirmPassword">Confirmer Mot de passe</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        {errors.mot_de_passe_confirmation && <div className="text-danger">{errors.mot_de_passe_confirmation[0]}</div>}
+                    </div>
+                </>
+            )}
+            <button type="submit" className="btn btn-primary mt-2">
+                {isEditing ? 'Update Admin' : 'Add Admin'}
+            </button>
+        </form>
+    </div>
+    <div className="table-responsive">
+        <table className="table table-bordered table-striped">
+            <thead className="thead-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {admins.map(admin => (
+                    <tr key={admin.id}>
+                        <td>{admin.nom}</td>
+                        <td>{admin.email}</td>
+                        <td>
+                            <button
+                                className="btn btn-warning btn-sm mr-2"
+                                onClick={() => handleEdit(admin.id)}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="btn btn-danger btn-sm"
+                                onClick={() => handleDelete(admin.id)}
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
+</div>
     );
 };
 

@@ -100,83 +100,91 @@ export default function User() {
     };
   
     return (
-      <div>
-        <div className="container">
-            <h1 className="display-4 text-center my-4">Users</h1>
-        </div>
-        <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
-          <div className="form-group">
-            <label htmlFor="nom">Nom</label>
-            <input
-              type="text"
-              className="form-control"
-              id="nom"
-              name="nom"
-              placeholder="Nom"
-              value={form.nom}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="mot_de_passe">Mot de passe</label>
-            <input
-              type="password"
-              className="form-control"
-              id="mot_de_passe"
-              name="mot_de_passe"
-              placeholder="Mot de passe"
-              value={form.mot_de_passe}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary mt-2">
-            {isEditing ? 'Update User' : 'Add User'}
-          </button>
-        </form>
+      <div className="mt-5">
+  <div className="container">
+    <h1 className="display-4 text-center my-4">Users</h1>
+  </div>
   
-        <table className="table table-bordered table-striped">
-          <thead className="thead-dark">
-              <tr>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Action</th>
-              </tr>
-          </thead>
-          <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.nom}</td>
-              <td>{user.email}</td>
-              <td>
-                <button
-                  className="btn btn-danger btn-sm mr-2"
-                  onClick={() => handleDelete(user.id)}
-                >
-                  Delete
-                </button>
-                <button
-                  className="btn btn-warning btn-sm"
-                  onClick={() => handleEdit(user)}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
+  <div className="mb-4 p-4 border rounded shadow-sm bg-light">
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="nom">Nom</label>
+        <input
+          type="text"
+          className="form-control"
+          id="nom"
+          name="nom"
+          placeholder="Nom"
+          value={form.nom}
+          onChange={handleChange}
+          required
+        />
       </div>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          className="form-control"
+          id="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="mot_de_passe">Mot de passe</label>
+        <input
+          type="password"
+          className="form-control"
+          id="mot_de_passe"
+          name="mot_de_passe"
+          placeholder="Mot de passe"
+          value={form.mot_de_passe}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <button type="submit" className="btn btn-primary mt-2">
+        {isEditing ? 'Update User' : 'Add User'}
+      </button>
+    </form>
+  </div>
+
+  <div className="table-responsive">
+    <table className="table table-bordered table-striped">
+      <thead className="thead-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map(user => (
+          <tr key={user.id}>
+            <td>{user.nom}</td>
+            <td>{user.email}</td>
+            <td>
+              <button
+                className="btn btn-warning btn-sm mr-2"
+                onClick={() => handleEdit(user)}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(user.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
     );
   };

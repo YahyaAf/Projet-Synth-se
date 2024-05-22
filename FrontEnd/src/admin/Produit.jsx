@@ -91,7 +91,7 @@ export default function Produit() {
   };
 
   return (
-    <div className="" >
+    <div className="">
       {error && <p className="alert alert-danger">{error}</p>}
       <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded shadow-sm bg-light">
       <h2 className="mb-4">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>

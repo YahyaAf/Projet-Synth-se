@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from './Navbar';
 
 
-function Home({ Toggle }) {
+function AdminHome({ Toggle }) {
     return (
         <div className='px-3'>
             <Nav Toggle={Toggle} />
@@ -99,4 +99,4 @@ function Home({ Toggle }) {
     );
 }
 
-export default Home;
+export default AdminHome;
