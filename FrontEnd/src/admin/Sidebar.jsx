@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react';
 
 
 function Sidebar() {
@@ -14,10 +15,10 @@ function Sidebar() {
                     <i className='bi bi-speedometer2 fs-5 me-3'></i>
                     <span>Dashboard</span>
                 </a>
-                <a className='list-group-item py-2' href='User'>
+                <Link className='list-group-item py-2' href='/dashbord'>
                     <i className='bi bi-house fs-5 me-3'></i>
                     <span>Home</span>
-                </a>
+                </Link>
                 <a className='list-group-item py-2'>
                     <i className='bi bi-table fs-5 me-3'></i>
                     <span>Products</span>

@@ -27,7 +27,6 @@ export const AuthContextProvider = ({ children }) => {
                 dispatch({ type: "LOGOUT" });
             }
         };
-
         checkUser(); // Check user on initial load
     }, []);
 

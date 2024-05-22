@@ -7,7 +7,7 @@ import useAuthContext from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 
 const initialNavigation = [
-  { name: 'Home', href: '/home', current: false },
+  { name: 'Home', href: '/', current: false },
   { name: 'Product', href: '/products', current: false },
   { name: 'Contact', href: '/contact', current: false },
 ];
@@ -55,7 +55,7 @@ const handleLogout = () =>{
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <h1 className='text-orange-300 font-bold text-xl'>
-                    <Link to='/home' onClick={handleLinkClick}>Fakher</Link>
+                    <Link to='/' onClick={handleLinkClick}>Fakhar</Link>
                   </h1>
                 </div>
                 <div className="hidden sm:flex sm:flex-1 sm:justify-center sm:ml-6">
