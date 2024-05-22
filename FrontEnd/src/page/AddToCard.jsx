@@ -33,7 +33,7 @@ export default function AddToCart() {
         headers: { "Authorization": `Bearer ${user.token}` }
       });
       if (response.ok) {
-        setData(data.filter(item => item.id !== id));
+        setData(data.filter(item => item.id_panier !== id));
       } else {
         throw new Error("Failed to delete product from panier");
       }
@@ -45,7 +45,7 @@ export default function AddToCart() {
   return (
     <div className="mx-auto p-20">
       {data.map((item) => (
-        <div key={item.id} className="grid grid-cols-3 gap-4 items-center mb-4 bg-gray-100 p-4 rounded-lg">
+        <div key={item.id_panier} className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
           <div className="flex items-center">
             <img src={item.product.image} className="w-16 h-16 object-cover mr-4" alt="product" />
             <div>
@@ -54,7 +54,7 @@ export default function AddToCart() {
             </div>
           </div>
           <div className="flex justify-end">
-            <TrashIcon onClick={() => handleDelete(item.id)} className="h-6 w-6 text-gray-500 cursor-pointer" />
+            <TrashIcon onClick={() => handleDelete(item.id_panier)} className="h-6 w-6 text-gray-500 cursor-pointer" />
           </div>
         </div>
       ))}

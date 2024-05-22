@@ -55,9 +55,11 @@ class paniersController extends Controller
      * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Panier $panier)
+    public function destroy($id)
     {
+        $panier = Panier::findOrFail($id);
         $panier->delete();
-        return response()->json("the panier deleted !");
+
+        return response()->json("The panier deleted!", 200);
     }
 }
