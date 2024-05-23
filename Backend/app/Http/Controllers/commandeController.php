@@ -25,7 +25,6 @@ class commandeController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'produit_id' => 'required|exists:produits,id',
-            'admin_id' => 'required|exists:admins,id',
         ]);
 
         $commande = Commande::create($request->all());

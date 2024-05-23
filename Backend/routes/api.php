@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\commandeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\paniersController;
 use App\Http\Controllers\productController;
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::delete("/panier/{id}", [PaniersController::class, 'destroy']);
 
 Route::post("/panier", [paniersController::class, 'store']);
+Route::post("/command", [commandeController::class, 'store']);
 
 Route::post('/signup', userController::class . "@signup");
 Route::post('/login', userController::class . "@login");

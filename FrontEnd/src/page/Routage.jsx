@@ -50,7 +50,7 @@ export default function Routage() {
                 element={user ? <AddToCard /> : <Navigate to="/login"/>}
                 />
                 <Route
-                path='/commaande'
+                path='/commande/:id'
                 element={user ? <Commande/> : <Navigate to="/login"/>}
                 />
               </Route>
