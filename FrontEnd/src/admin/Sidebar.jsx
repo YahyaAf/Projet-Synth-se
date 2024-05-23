@@ -1,4 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 
 function Sidebar() {
     return (
@@ -24,6 +26,10 @@ function Sidebar() {
             <Link className='list-group-item py-2' to='/admin/admins'>
                 <i className='bi bi-people fs-5 me-3'></i>
                 <span>Admins</span>
+            </Link>
+            <Link className='list-group-item py-2' to='/admin/commande'>
+                <i className='bi bi-people fs-5 me-3'></i>
+                <span>Commandes</span>
             </Link>
             <Link className='list-group-item py-2' to='/admin/logout'>
                 <i className='bi bi-power fs-5 me-3'></i>
