@@ -16,6 +16,7 @@ import Produit from '../admin/Produit.jsx'
 import AdminManagement from '../admin/CreateAdmin.jsx'
 import AdminLayout from '../components/AdminLayout.jsx'
 import CommandPage from '../admin/CommandeManagement.jsx'
+import NotFound from './NotFound.jsx'
 
 export default function Routage() {
   const {user}=useAuthContext()
@@ -54,8 +55,12 @@ export default function Routage() {
                 path='/commande/:id'
                 element={user ? <Commande/> : <Navigate to="/login"/>}
                 />
+                <Route
+                path='*'
+                element={<NotFound/>}
+                />
               </Route>
-
+          
               <Route path='/admin' element={<AdminLayout />}>
                 <Route path='/admin/Home' element={<AdminHome/>} />
                 <Route path='/admin/user' element={<User/>} />

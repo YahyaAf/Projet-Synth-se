@@ -24,15 +24,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/product/{produit}', productController::class . "@show");
     Route::get("/panier", [paniersController::class, 'index']);
+    Route::delete("/panier/{id}", [PaniersController::class, 'destroy']);
+    Route::post("/panier", [paniersController::class, 'store']);
+    Route::post("/command", [commandeController::class, 'store']);
 });
 
 Route::get('/product', productController::class . "@index");
 
-
-Route::delete("/panier/{id}", [PaniersController::class, 'destroy']);
-
-Route::post("/panier", [paniersController::class, 'store']);
-Route::post("/command", [commandeController::class, 'store']);
 
 Route::post('/signup', userController::class . "@signup");
 Route::post('/login', userController::class . "@login");

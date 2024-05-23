@@ -82,37 +82,35 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="relative mx-auto mt-20 mb-20" style={{ maxWidth: "1200px" }}>
+    <div className="relative mx-auto mt-20 mb-20 max-w-4xl">
       {alertMessage && (
         <div className={`fixed top-0 left-0 w-full p-4 z-50 text-center ${alertType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
           {alertMessage}
         </div>
       )}
-      <div className="flex justify-center">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl">
-          <div className="p-5 w-1/2">
-            <img
-              src={`/public/${data.image}`}
-              className="w-full h-full object-cover"
-              alt="Product"
-            />
-          </div>
-          <div className="p-10 w-1/2 flex flex-col justify-center">
-            <h5 className="text-3xl mb-3 uppercase font-bold">{data.nom}</h5>
-            <p className="text-lg mb-3">{data.description}</p>
-            <p className="text-xl text-gray-500 font-semibold mb-3">{data.prix} DH</p>
-            <button
-              onClick={handleAddToCart}
-              className="mt-5 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
-            >
-              Ajouter au panier
-            </button>
-            <Link 
-              className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center focus-visible:outline-orange-600"
-              to={`/commande/${id}`}>
-                commande
-              </Link>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="p-5">
+          <img
+            src={`/public/${data.image}`}
+            className="w-full h-full object-cover"
+            alt="Product"
+          />
+        </div>
+        <div className="p-5 flex flex-col justify-center">
+          <h5 className="text-3xl mb-3 uppercase font-bold">{data.nom}</h5>
+          <p className="text-lg mb-3">{data.description}</p>
+          <p className="text-xl text-gray-500 font-semibold mb-3">{data.prix} DH</p>
+          <button
+            onClick={handleAddToCart}
+            className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center focus-visible:outline-orange-600"
+          >
+            Ajouter au panier
+          </button>
+          <Link 
+            className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center focus-visible:outline-orange-600"
+            to={`/commande/${id}`}>
+              commande
+            </Link>
         </div>
       </div>
     </div>

@@ -88,22 +88,22 @@ export default function Home() {
         </section>
       
       </div> */}
-<div className="p-20 ml-10 flex justify-center">
-  <div className="flex items-center bg-white p-8 rounded-md shadow-md">
-    <div className="w-1/2 max-w-sm">
+<div className="p-4 sm:p-20 ml-0 sm:ml-10 flex justify-center">
+  <div className="flex flex-col sm:flex-row items-center bg-white p-8 rounded-md shadow-md">
+    <div className="w-full sm:w-1/2 max-w-sm mb-4 sm:mb-0">
       <img 
         src="../../public/pexels-axp-photography-500641970-16534567.jpg" 
         alt="Product of the month" 
         className="w-full h-auto object-cover rounded-md"
       />
     </div>
-    <div className="w-1/2 ml-10">
-      <p className="text-gray-600 text-xl mb-6">SAVE UP TO 70%</p>
-      <h4 className="text-5xl font-extrabold text-gray-400 mb-6">Products of the month</h4>
-      <p className="text-gray-700 mb-6">Discover excellence at an irresistible price now!</p>
+    <div className="w-full sm:w-1/2 ml-0 sm:ml-10">
+      <p className="text-gray-600 text-xl mb-4 sm:mb-6">SAVE UP TO 70%</p>
+      <h4 className="text-2xl sm:text-5xl font-extrabold text-gray-400 mb-4 sm:mb-6">Products of the month</h4>
+      <p className="text-gray-700 mb-4 sm:mb-6">Discover excellence at an irresistible price now!</p>
       <Link to="/products">
-        <button className="rounded-md bg-orange-500 px-6 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
-        Discover now
+        <button className="rounded-md bg-orange-500 px-4 sm:px-6 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
+          Discover now
         </button>
       </Link>
     </div>

@@ -55,8 +55,8 @@ export default function AddToCart() {
   return (
     <div className="mx-auto p-20" style={{minHeight:"400px"}}>
       {data.map((item) => (
-        <Link key={item.id_panier} to={`/productDetails/${item.product.id}`}>
-        <div  className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
+        <div key={item.id_panier}  className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
+          <Link to={`/productDetails/${item.product.id}`}>
           <div className="flex items-center">
             <img src={item.product.image} className="w-16 h-16 object-cover mr-4" alt="product" />
             <div>
@@ -64,11 +64,11 @@ export default function AddToCart() {
               <p>{item.product.prix} DH</p>
             </div>
           </div>
+        </Link>
           <div className="flex justify-end">
             <TrashIcon onClick={() => handleDelete(item.id_panier)} className="h-6 w-6 text-gray-500 cursor-pointer" />
           </div>
         </div>
-        </Link>
       ))}
       <div className="flex justify-end mt-6">
       </div>
