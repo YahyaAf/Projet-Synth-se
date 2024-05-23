@@ -22,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/product', productController::class . "@index");
     Route::get('/product/{produit}', productController::class . "@show");
     Route::get("/panier", [paniersController::class, 'index']);
 });
 
+Route::get('/product', productController::class . "@index");
 
 
 Route::delete("/panier/{id}", [PaniersController::class, 'destroy']);
