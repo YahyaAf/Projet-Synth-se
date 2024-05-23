@@ -47,3 +47,11 @@ Route::get('admin/{id}', [AdminController::class, 'show']);
 Route::put('admin/{id}', [AdminController::class, 'update']);
 Route::delete('admin/{id}', [AdminController::class, 'destroy']);
 
+
+
+Route::get('commandes', [CommandeController::class, 'index']);
+Route::post('commandes', [CommandeController::class, 'store']);
+Route::get('commandes/{id}', [CommandeController::class, 'show']);
+Route::put('commandes/{id}', [CommandeController::class, 'update']);
+Route::delete('commandes/{id}', [CommandeController::class, 'destroy']);
+
