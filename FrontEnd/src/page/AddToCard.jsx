@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import Loading from "./Loading";
+import { Link } from "react-router-dom";
 
 export default function AddToCart() {
   const { user } = useAuthContext();
@@ -54,7 +55,8 @@ export default function AddToCart() {
   return (
     <div className="mx-auto p-20" style={{minHeight:"400px"}}>
       {data.map((item) => (
-        <div key={item.id_panier} className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
+        <Link key={item.id_panier} to={`/productDetails/${item.product.id}`}>
+        <div  className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
           <div className="flex items-center">
             <img src={item.product.image} className="w-16 h-16 object-cover mr-4" alt="product" />
             <div>
@@ -66,13 +68,9 @@ export default function AddToCart() {
             <TrashIcon onClick={() => handleDelete(item.id_panier)} className="h-6 w-6 text-gray-500 cursor-pointer" />
           </div>
         </div>
+        </Link>
       ))}
       <div className="flex justify-end mt-6">
-        <button 
-        
-        className="mt-5 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
-          Cammande
-        </button>
       </div>
     </div>
   );

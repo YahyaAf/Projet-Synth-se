@@ -10,11 +10,12 @@ class Commande extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_utilisateur',
-        'id_administrateur',
-        'date_commande',
-        'statut',
-        'total'
+        'user_id',
+        'produit_id',
+        'total',
+        'adresse',
+        'ville',
+        'numero'
     ];
 
     /**

@@ -109,7 +109,7 @@ export default function ProductDetails() {
             </button>
             <Link 
               className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center focus-visible:outline-orange-600"
-              to="/commande">
+              to={`/commande/${id}`}>
                 commande
               </Link>
           </div>
