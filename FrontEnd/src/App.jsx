@@ -6,7 +6,7 @@ import Routage from './page/Routage';
 function App() {
   return (
     <>
-      <Commande />
+      <Routage />
     </>
   );
 }
