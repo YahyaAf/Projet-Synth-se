@@ -1,4 +1,5 @@
 
+import AdminLogin from './admin/LoginAdmin';
 import Routage from './page/Routage';
 
 
@@ -7,7 +8,8 @@ import Routage from './page/Routage';
 function App() {
   return (
     <>
-      <Routage />
+      {/* <Routage /> */}
+      <AdminLogin />
 
     </>
   );

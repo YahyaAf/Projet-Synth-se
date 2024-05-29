@@ -14,20 +14,21 @@ const AdminLogin = () => {
                 },
                 body: JSON.stringify({
                     email: email,
-                    mot_de_passe: password
+                    password: password  // Make sure to use 'password' instead of 'mot_de_passe'
                 }),
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error(data.error);
             }
 
-            const data = await response.json();
             const token = data.token;
             // Store the token in local storage or context for future authenticated requests
             console.log('Login successful. Token:', token);
         } catch (error) {
-            setError('Invalid email or password');
+            setError(error.message);
             console.error('Login failed:', error);
         }
     };

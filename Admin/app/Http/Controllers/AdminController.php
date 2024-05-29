@@ -6,27 +6,43 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function login(Request $request)
+    public function Login(Request $request)
     {
-        $credentials = $request->only('email', 'mot_de_passe');
-
-        $admin = Admin::where('email', $credentials['email'])->first();
-        if (!$admin) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+    
+        // Return validation errors if any
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
         }
-
-        if (Hash::check($credentials['mot_de_passe'], $admin->mot_de_passe)) {
-            $token = $admin->createToken('AdminToken')->plainTextToken;
-            return response()->json(['token' => $token], 200);
+    
+        // Retrieve the admin by email
+        $admin = Admin::where('email', $request->email)->first();
+    
+        // Check if admin exists and verify password
+        if (!$admin || !Hash::check($request->password, $admin->password)) {
+            // Log failed login attempt
+            Log::warning('Admin login attempt with incorrect credentials', ['email' => $request->email]);
+            return response()->json(['error' => 'Incorrect credentials'], 401);
         }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
+    
+        // Generate a new token for the authenticated admin
+        $token = $admin->createToken('admin_token')->plainTextToken;
+    
+        // Log successful login
+        Log::info('Admin logged in successfully', ['email' => $admin->email]);
+    
+        // Return token and admin information in the response
+        return response()->json(['token' => $token, 'admin' => $admin], 200);
     }
-
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
