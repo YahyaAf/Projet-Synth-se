@@ -1,53 +1,70 @@
 import React, { useState } from 'react';
 
-const AdminLogin = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+const LoginAdmin = () => {
+  const [email, setEmail] = useState('');
+  const [motDePasse, setMotDePasse] = useState('');
+  const [error, setError] = useState('');
 
-    const handleLogin = async () => {
-        try {
-            const response = await fetch('http://localhost:8000/api/admin/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password  // Make sure to use 'password' instead of 'mot_de_passe'
-                }),
-            });
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-            const data = await response.json();
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          mot_de_passe: motDePasse,
+        }),
+      });
 
-            if (!response.ok) {
-                throw new Error(data.error);
-            }
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.error);
+        return;
+      }
 
-            const token = data.token;
-            // Store the token in local storage or context for future authenticated requests
-            console.log('Login successful. Token:', token);
-        } catch (error) {
-            setError(error.message);
-            console.error('Login failed:', error);
-        }
-    };
+      const data = await response.json();
+      
+      // Stocker le jeton dans le localStorage ou dans un contexte
+      localStorage.setItem('auth_token', data.token);
 
-    return (
+      // Optionnel: rediriger l'utilisateur vers une autre page
+      window.location.href = '/dashboard';
+    } catch (err) {
+      setError('Failed to login. Please try again.');
+    }
+  };
+
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
         <div>
-            <h2>Admin Login</h2>
-            <div>
-                <label>Email:</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </div>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-            <button onClick={handleLogin}>Login</button>
+          <label>Email:</label>
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
         </div>
-    );
+        <div>
+          <label>Password:</label>
+          <input 
+            type="password" 
+            value={motDePasse} 
+            onChange={(e) => setMotDePasse(e.target.value)} 
+            required 
+          />
+        </div>
+        {error && <p style={{color: 'red'}}>{error}</p>}
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
 };
 
-export default AdminLogin;
+export default LoginAdmin;
