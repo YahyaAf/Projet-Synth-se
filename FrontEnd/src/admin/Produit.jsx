@@ -1,5 +1,5 @@
 // src/ProduitPage.js
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Produit() {
@@ -18,7 +18,7 @@ export default function Produit() {
 
   const fetchProduits = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/produit');
+      const response = await fetch('http://localhost:8008/api/produit');
       const data = await response.json();
       setProduits(data);
     } catch (error) {
@@ -31,7 +31,7 @@ export default function Produit() {
     const produit = { nom, description, prix, quantite_stock: quantiteStock, image };
 
     try {
-      const response = await fetch(`http://localhost:8000/api/produit${selectedProduit ? `/${selectedProduit.id}` : ''}`, {
+      const response = await fetch(`http://localhost:8008/api/produit${selectedProduit ? `/${selectedProduit.id}` : ''}`, {
         method: selectedProduit ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export default function Produit() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/produit/${id}`, {
+      const response = await fetch(`http://localhost:8008/api/produit/${id}`, {
         method: 'DELETE'
       });
 

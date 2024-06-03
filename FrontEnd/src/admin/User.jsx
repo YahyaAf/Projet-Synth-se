@@ -17,7 +17,7 @@ export default function User() {
   
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/users');
+        const response = await fetch('http://localhost:8008/api/users');
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -44,7 +44,7 @@ export default function User() {
 
     const handleAdd = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/users', {
+        const response = await fetch('http://localhost:8008/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export default function User() {
   
     const handleDelete = async (id) => {
       try {
-        await fetch(`http://localhost:8000/api/users/${id}`, {
+        await fetch(`http://localhost:8008/api/users/${id}`, {
           method: 'DELETE',
         });
         setUsers(users.filter((user) => user.id !== id));
@@ -72,7 +72,7 @@ export default function User() {
   
     const handleUpdate = async (id) => {
       try {
-        const response = await fetch(`http://localhost:8000/api/users/${id}`, {
+        const response = await fetch(`http://localhost:8008/api/users/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

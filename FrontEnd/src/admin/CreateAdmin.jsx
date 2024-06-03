@@ -16,7 +16,7 @@ const AdminManagement = () => {
 
     const fetchAdmins = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/admin');
+            const response = await fetch('http://localhost:8008/api/admin');
             if (!response.ok) {
                 throw new Error('Failed to fetch admins');
             }
@@ -29,7 +29,7 @@ const AdminManagement = () => {
 
     const handleCreate = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/admin/create', {
+            const response = await fetch('http://localhost:8008/api/admin/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const AdminManagement = () => {
 
     const handleUpdate = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/admin/${editId}`, {
+            const response = await fetch(`http://localhost:8008/api/admin/${editId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const AdminManagement = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/admin/${id}`, {
+            const response = await fetch(`http://localhost:8008/api/admin/${id}`, {
                 method: 'DELETE',
             });
 
