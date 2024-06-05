@@ -1,8 +1,14 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-
+import useAuthAdminContext from '../hooks/useAuthAdminContext';
 
 function Sidebar() {
+    const {dispatch}= useAuthAdminContext()
+    const handleLogout =() => {
+        localStorage.removeItem("auth_token")
+    
+        //dispatch logout actiom
+        dispatch({type: "LOGOUT"})
+    }
     return (
         <div className='bg-white sidebar p-2'>
         <div className='m-2'>
@@ -31,9 +37,9 @@ function Sidebar() {
                 <i className='bi bi-people fs-5 me-3'></i>
                 <span>Commandes</span>
             </Link>
-            <Link className='list-group-item py-2' to='/admin/logout'>
+            <Link className='list-group-item py-2' onClick={handleLogout}>
                 <i className='bi bi-power fs-5 me-3'></i>
-                <span>Logout</span>
+                <span >Logout</span>
             </Link>
         </div>
     </div>

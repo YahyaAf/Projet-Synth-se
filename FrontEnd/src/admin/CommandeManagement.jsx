@@ -18,7 +18,7 @@ const CommandPage = () => {
     }, []);
 
     const fetchCommandes = async () => {
-        const response = await fetch('http://localhost:8000/api/commandes');
+        const response = await fetch('http://localhost:8008/api/commandes');
         const data = await response.json();
         setCommandes(data);
     };
@@ -54,7 +54,7 @@ const CommandPage = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:8000/api/commandes/${selectedCommande.id}`, {
+        const response = await fetch(`http://localhost:8008/api/commandes/${selectedCommande.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const CommandPage = () => {
     };
 
     const handleDelete = async (id) => {
-        const response = await fetch(`http://localhost:8000/api/commandes/${id}`, {
+        const response = await fetch(`http://localhost:8008/api/commandes/${id}`, {
             method: 'DELETE',
         });
 
