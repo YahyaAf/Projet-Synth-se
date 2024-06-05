@@ -1,4 +1,4 @@
-import  { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 
 export const AuthAdminContext = createContext();
 
@@ -20,9 +20,19 @@ export const AuthAdminContextProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAdmin = () => {
-            const admin = JSON.parse(localStorage.getItem('auth_token'));
-            if (admin) {
-                dispatch({ type: "LOGIN", payload: admin });
+            const authToken = localStorage.getItem('auth_token');
+            if (authToken) {
+                try {
+                    const admin = JSON.parse(authToken);
+                    if (admin) {
+                        dispatch({ type: "LOGIN", payload: admin });
+                    } else {
+                        dispatch({ type: "LOGOUT" });
+                    }
+                } catch (error) {
+                    console.error('Error parsing auth_token:', error);
+                    dispatch({ type: "LOGOUT" });
+                }
             } else {
                 dispatch({ type: "LOGOUT" });
             }

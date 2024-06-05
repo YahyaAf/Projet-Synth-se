@@ -99,7 +99,7 @@ export default function Contact() {
           {success && <p className="text-green-500 mb-4">{success}</p>}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md transition duration-300 hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            className="flex w-full justify-center rounded-md bg-orange-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
             disabled={loading}
           >
             {loading ? 'Envoi en cours...' : 'Envoyer'}
