@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\commandeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\paniersController;
 use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\UserController;
@@ -40,7 +41,8 @@ Route::resource('admin/commandes', commandeController::class);
 // });
 Route::resource('admin/paniers', paniersController::class);
 
-Route::post('admin/login', [AdminController::class, 'login']);
+Route::post('admin/login', [LoginController::class, 'login']);
+
 Route::post('admin/create', [AdminController::class, 'create']);
 Route::get('admin', [AdminController::class, 'index']);
 Route::get('admin/{id}', [AdminController::class, 'show']);

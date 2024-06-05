@@ -6,27 +6,11 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'mot_de_passe');
-
-        $admin = Admin::where('email', $credentials['email'])->first();
-        if (!$admin) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        if (Hash::check($credentials['mot_de_passe'], $admin->mot_de_passe)) {
-            $token = $admin->createToken('AdminToken')->plainTextToken;
-            return response()->json(['token' => $token], 200);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter,Navigate,Route,Routes } from 'react-router-dom'
 import Layout from '../components/Layout'
 import Login from './Login.jsx'
@@ -17,9 +16,14 @@ import AdminManagement from '../admin/CreateAdmin.jsx'
 import AdminLayout from '../components/AdminLayout.jsx'
 import CommandPage from '../admin/CommandeManagement.jsx'
 import NotFound from './NotFound.jsx'
+import LoginAdmin from '../admin/LoginAdmin.jsx'
+import { useContext } from 'react'
+import { AuthAdminContext } from '../context/AuthAdminContext.jsx'
 
 export default function Routage() {
   const {user}=useAuthContext()
+  const {admin}=useContext(AuthAdminContext)
+  console.log(admin);
   return (
     <>
         <BrowserRouter>
@@ -60,17 +64,40 @@ export default function Routage() {
                 element={<NotFound/>}
                 />
               </Route>
-          
-              <Route path='/admin' element={<AdminLayout />}>
-                <Route path='/admin/Home' element={<AdminHome/>} />
-                <Route path='/admin/user' element={<User/>} />
-                <Route path='/admin/produit' element={<Produit/>} />
-                <Route path='/admin/admins' element={<AdminManagement/>} />
-                <Route path='/admin/commande' element={<CommandPage/>} />
-              </Route>
-           </Routes>
 
-         </BrowserRouter>
+              {/* admin route */}
+              <Route
+              path="/adminlogin"
+              element={!admin ? <LoginAdmin/> : <Navigate to="/admin"/>}/>
+
+              <Route
+              path='/admin'
+              element={admin ? <AdminLayout />:<Navigate to="/adminlogin"/> }>
+
+                <Route
+                path='/admin/Home'
+                element={admin? <AdminHome/>:<Navigate to="/adminlogin"/>}
+                />
+                <Route
+                path='/admin/user'
+                element={admin ? <User/>:<Navigate to="/adminlogin"/> }
+                />
+                <Route
+                path='/admin/produit'
+                element={admin ? <Produit/> :<Navigate to="/adminlogin"/> }
+                />
+                <Route
+                path='/admin/admins'
+                element={admin ? <AdminManagement/> :<Navigate to="/adminlogin"/>}
+                />
+                <Route
+                path='/admin/commande'
+                element={admin ? <CommandPage/>:<Navigate to="/adminlogin"/> }
+                />
+              </Route>
+          </Routes>
+
+        </BrowserRouter>
         </>
   )
 }
