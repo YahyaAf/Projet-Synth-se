@@ -52,6 +52,7 @@ const AdminManagement = () => {
             setEmail('');
             setPassword('');
             setConfirmPassword('');
+            setErrors([]);
         } catch (error) {
             setErrors(JSON.parse(error.message));
             console.error('Admin creation failed:', error);
@@ -91,6 +92,7 @@ const AdminManagement = () => {
             setEditId(null);
             setNom('');
             setEmail('');
+            setErrors([]);
         } catch (error) {
             console.error('Admin update failed:', error);
         }
@@ -122,98 +124,98 @@ const AdminManagement = () => {
     };
 
     return (
-        <div className="mt-5">
-    <h1 className="display-4 text-center my-4">Admin Management</h1>
-    <div className="p-4 border rounded bg-light mb-4">
-        <form onSubmit={handleSubmit}>
-            <h3 className="mb-4">{isEditing ? 'Edit Admin' : 'Create Admin'}</h3>
-            <div className="form-group">
-                <label htmlFor="nom">Nom</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="nom"
-                    value={nom}
-                    onChange={(e) => setNom(e.target.value)}
-                />
-                {errors.nom && <div className="text-danger">{errors.nom[0]}</div>}
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                {errors.email && <div className="text-danger">{errors.email[0]}</div>}
-            </div>
-            {!isEditing && (
-                <>
-                    <div className="form-group">
-                        <label htmlFor="password">Mot de passe</label>
+        <div className="bg-gray-100 min-h-screen p-4 md:p-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">Admin Management</h1>
+            <div className="p-4 md:p-6 border rounded shadow-sm bg-gray-200 max-w-4xl mx-auto mb-6">
+                <form onSubmit={handleSubmit}>
+                    <h3 className="text-lg md:text-xl font-semibold mb-4">{isEditing ? 'Edit Admin' : 'Create Admin'}</h3>
+                    <div className="mb-4">
+                        <label htmlFor="nom" className="block text-sm md:text-base font-medium text-gray-700">Nom</label>
                         <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            type="text"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base"
+                            id="nom"
+                            value={nom}
+                            onChange={(e) => setNom(e.target.value)}
                         />
-                        {errors.mot_de_passe && <div className="text-danger">{errors.mot_de_passe[0]}</div>}
+                        {errors.nom && <div className="text-red-500 text-xs md:text-sm mt-1">{errors.nom[0]}</div>}
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirmer Mot de passe</label>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-sm md:text-base font-medium text-gray-700">Email</label>
                         <input
-                            type="password"
-                            className="form-control"
-                            id="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="email"
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
-                        {errors.mot_de_passe_confirmation && <div className="text-danger">{errors.mot_de_passe_confirmation[0]}</div>}
+                        {errors.email && <div className="text-red-500 text-xs md:text-sm mt-1">{errors.email[0]}</div>}
                     </div>
-                </>
-            )}
-            <button type="submit" className="btn btn-primary mt-2">
-                {isEditing ? 'Update Admin' : 'Add Admin'}
-            </button>
-        </form>
-    </div>
-    <div className="table-responsive">
-        <table className="table table-bordered table-striped">
-            <thead className="thead-dark">
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {admins.map(admin => (
-                    <tr key={admin.id}>
-                        <td>{admin.nom}</td>
-                        <td>{admin.email}</td>
-                        <td>
-                            <button
-                                className="btn btn-warning btn-sm mr-2"
-                                onClick={() => handleEdit(admin.id)}
-                            >
-                                Edit
-                            </button>
-                            <button
-                                className="btn btn-danger btn-sm"
-                                onClick={() => handleDelete(admin.id)}
-                            >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>
-</div>
+                    {!isEditing && (
+                        <>
+                            <div className="mb-4">
+                                <label htmlFor="password" className="block text-sm md:text-base font-medium text-gray-700">Mot de passe</label>
+                                <input
+                                    type="password"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base"
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                {errors.mot_de_passe && <div className="text-red-500 text-xs md:text-sm mt-1">{errors.mot_de_passe[0]}</div>}
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="confirmPassword" className="block text-sm md:text-base font-medium text-gray-700">Confirmer Mot de passe</label>
+                                <input
+                                    type="password"
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base"
+                                    id="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                />
+                                {errors.mot_de_passe_confirmation && <div className="text-red-500 text-xs md:text-sm mt-1">{errors.mot_de_passe_confirmation[0]}</div>}
+                            </div>
+                        </>
+                    )}
+                    <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {isEditing ? 'Update Admin' : 'Add Admin'}
+                    </button>
+                </form>
+            </div>
+            <div className="overflow-x-auto max-w-4xl mx-auto">
+                <table className="min-w-full divide-y divide-gray-200 bg-white shadow overflow-hidden sm:rounded-lg">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                            <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {admins.map(admin => (
+                            <tr key={admin.id}>
+                                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">{admin.nom}</td>
+                                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{admin.email}</td>
+                                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium">
+                                    <button
+                                        className="text-indigo-600 hover:text-indigo-900 mr-2 md:mr-4"
+                                        onClick={() => handleEdit(admin.id)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="text-red-600 hover:text-red-900"
+                                        onClick={() => handleDelete(admin.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 };
 

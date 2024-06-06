@@ -1,6 +1,6 @@
-// src/ProduitPage.js
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function Produit() {
   const [produits, setProduits] = useState([]);
@@ -91,102 +91,104 @@ export default function Produit() {
   };
 
   return (
-    <div className="">
+    <div className="bg-gray-100 min-h-screen p-4 md:p-6">
       {error && <p className="alert alert-danger">{error}</p>}
-      <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded shadow-sm bg-light">
-      <h2 className="mb-4">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>
-      <div className="form-group">
-        <label htmlFor="nom">Nom</label>
-        <input 
-          type="text" 
-          className="form-control" 
-          id="nom" 
-          name="nom" 
-          value={nom} 
-          onChange={(e) => setNom(e.target.value)} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="description">Description</label>
-        <input 
-          type="text" 
-          className="form-control" 
-          id="description" 
-          name="description" 
-          value={description} 
-          onChange={(e) => setDescription(e.target.value)} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="prix">Prix</label>
-        <input 
-          type="number" 
-          className="form-control" 
-          id="prix" 
-          name="prix" 
-          value={prix} 
-          onChange={(e) => setPrix(e.target.value)} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="quantite_stock">Quantité en stock</label>
-        <input 
-          type="number" 
-          className="form-control" 
-          id="quantite_stock" 
-          name="quantite_stock" 
-          value={quantiteStock} 
-          onChange={(e) => setQuantiteStock(e.target.value)} 
-          required 
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="image">Image</label>
-        <input 
-          type="text" 
-          className="form-control" 
-          id="image" 
-          name="image" 
-          value={image} 
-          onChange={(e) => setImage(e.target.value)} 
-          required 
-        />
-      </div>
-      <button type="submit" className="btn btn-primary mt-2">{selectedProduit ? 'Mettre à jour' : 'Ajouter'}</button>
-      {selectedProduit && <button type="button" className="btn btn-secondary ml-2" onClick={resetForm}>Annuler</button>}
-    </form>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Prix (€)</th>
-            <th>Quantité en stock</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {produits.map(produit => (
-            <tr key={produit.id}>
-              <td>{produit.nom}</td>
-              <td>{produit.description}</td>
-              <td>{produit.prix}</td>
-              <td>{produit.quantite_stock}</td>
-              <td>{produit.image}</td>
-              <td>
-                <button className="btn btn-warning mr-2" onClick={() => handleEdit(produit)}>Modifier</button>
-                <button className="btn btn-danger" onClick={() => handleDelete(produit.id)}>Supprimer</button>
-              </td>
+      <form onSubmit={handleSubmit} className="mb-6 p-4 md:p-6 border rounded shadow-sm bg-gray-200 max-w-4xl mx-auto">
+        <h2 className="mb-4 text-lg md:text-xl font-semibold">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>
+        <div className="mb-4">
+          <label htmlFor="nom" className="block text-sm md:text-base font-medium text-gray-700">Nom</label>
+          <input 
+            type="text" 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
+            id="nom" 
+            name="nom" 
+            value={nom} 
+            onChange={(e) => setNom(e.target.value)} 
+            required 
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="description" className="block text-sm md:text-base font-medium text-gray-700">Description</label>
+          <input 
+            type="text" 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
+            id="description" 
+            name="description" 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)} 
+            required 
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="prix" className="block text-sm md:text-base font-medium text-gray-700">Prix</label>
+          <input 
+            type="number" 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
+            id="prix" 
+            name="prix" 
+            value={prix} 
+            onChange={(e) => setPrix(e.target.value)} 
+            required 
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="quantite_stock" className="block text-sm md:text-base font-medium text-gray-700">Quantité en stock</label>
+          <input 
+            type="number" 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
+            id="quantite_stock" 
+            name="quantite_stock" 
+            value={quantiteStock} 
+            onChange={(e) => setQuantiteStock(e.target.value)} 
+            required 
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image" className="block text-sm md:text-base font-medium text-gray-700">Image</label>
+          <input 
+            type="text" 
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
+            id="image" 
+            name="image" 
+            value={image} 
+            onChange={(e) => setImage(e.target.value)} 
+            required 
+          />
+        </div>
+        <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          {selectedProduit ? 'Mettre à jour' : 'Ajouter'}
+        </button>
+        {selectedProduit && <button type="button" className="ml-2 inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-base font-medium rounded-md shadow-sm text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" onClick={resetForm}>Annuler</button>}
+      </form>
+      <div className="overflow-x-auto max-w-4xl mx-auto">
+        <table className="min-w-full divide-y divide-gray-200 bg-white shadow overflow-hidden sm:rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Description</th>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Prix (€)</th>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Quantité en stock</th>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Image</th>
+              <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {produits.map(produit => (
+              <tr key={produit.id}>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">{produit.nom}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.description}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.prix}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.quantite_stock}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.image}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium">
+                  <button className="text-indigo-600 hover:text-indigo-900 mr-2 md:mr-4" onClick={() => handleEdit(produit)}>Modifier</button>
+                  <button className="text-red-600 hover:text-red-900" onClick={() => handleDelete(produit.id)}>Supprimer</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-
+}

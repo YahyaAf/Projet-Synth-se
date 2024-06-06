@@ -29,7 +29,7 @@ const CommandPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8000/api/commandes', {
+        const response = await fetch('http://localhost:8008/api/commandes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -110,33 +110,34 @@ const CommandPage = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Gestion des Commandes</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <ul>
+        <div className="bg-gray-50 min-h-screen p-4 md:p-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">Gestion des Commandes</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl mx-auto">
+                <div className="bg-white p-4 md:p-6 rounded shadow-sm">
+                    <h2 className="text-2xl font-semibold mb-4">Liste des Commandes</h2>
+                    <ul className="space-y-4">
                         {commandes.map((commande) => (
-                            <li key={commande.id} className="border p-2 mb-2 flex justify-between items-center">
+                            <li key={commande.id} className="border p-4 rounded shadow-sm flex justify-between items-center">
                                 <div>
-                                    <p>ID: {commande.id}</p>
+                                    <p className="font-semibold">ID: {commande.id}</p>
                                     <p>Total: {commande.total}</p>
                                 </div>
-                                <div>
+                                <div className="space-x-2">
                                     <button
                                         onClick={() => handleDetails(commande)}
-                                        className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+                                        className="text-gray-600 hover:text-gray-900 mr-2 md:mr-4"
                                     >
                                         Voir Détails
                                     </button>
                                     <button
                                         onClick={() => handleEdit(commande)}
-                                        className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+                                        className="text-blue-600 hover:text-blue-900 mr-2 md:mr-4"
                                     >
                                         Modifier
                                     </button>
                                     <button
                                         onClick={() => handleDelete(commande.id)}
-                                        className="bg-red-500 text-white px-2 py-1 rounded"
+                                        className="hover:text-red-900"
                                     >
                                         Supprimer
                                     </button>
@@ -147,8 +148,8 @@ const CommandPage = () => {
                 </div>
                 <div>
                     {selectedCommande && !isEditing && (
-                        <div className="bg-white p-4 rounded shadow-md">
-                            <h2 className="text-xl font-semibold mb-4">Détails de la Commande</h2>
+                        <div className="bg-white p-4 md:p-6 rounded shadow-sm">
+                            <h2 className="text-2xl font-semibold mb-4">Détails de la Commande</h2>
                             <div className="mb-2">
                                 <span className="font-semibold">ID:</span> {selectedCommande.id}
                             </div>
@@ -156,7 +157,7 @@ const CommandPage = () => {
                                 <span className="font-semibold">Total:</span> {selectedCommande.total}
                             </div>
                             <div className="mb-2">
-                                <span className="font-semibold">Created At:</span> {new Date(selectedCommande.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                                <span className="font-semibold">Créé le:</span> {new Date(selectedCommande.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
                             </div>
                             <div className="mb-2">
                                 <span className="font-semibold">User ID:</span> {selectedCommande.user_id}
@@ -176,8 +177,8 @@ const CommandPage = () => {
                         </div>
                     )}
                     {selectedCommande && isEditing && (
-                        <form onSubmit={handleUpdate} className="bg-white p-4 rounded shadow-md">
-                            <h2 className="text-xl font-semibold mb-4">Modifier la Commande</h2>
+                        <form onSubmit={handleUpdate} className="bg-white p-4 md:p-6 rounded shadow-sm">
+                            <h2 className="text-2xl font-semibold mb-4">Modifier la Commande</h2>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Total:</label>
                                 <input
@@ -247,15 +248,15 @@ const CommandPage = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+                                className="text-blue-600 hover:text-blue-900 mr-2 md:mr-4"
                             >
                                 Mettre à jour
                             </button>
                         </form>
                     )}
-                    {!selectedCommande && !isEditing && (
-                        <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow-md">
-                            <h2 className="text-xl font-semibold mb-4">Ajouter une Commande</h2>
+                    {!selectedCommande && (
+                        <form onSubmit={handleSubmit} className="bg-white p-4 md:p-6 rounded shadow-sm">
+                            <h2 className="text-2xl font-semibold mb-4">Créer une Nouvelle Commande</h2>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Total:</label>
                                 <input
@@ -325,9 +326,9 @@ const CommandPage = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                                className="text-indigo-600 hover:text-indigo-900 mr-2 md:mr-4"
                             >
-                                Ajouter
+                                Créer
                             </button>
                         </form>
                     )}
