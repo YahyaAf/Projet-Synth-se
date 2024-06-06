@@ -1,10 +1,9 @@
 import React from 'react';
 import Nav from './Navbar';
 
-
 function AdminHome({ Toggle }) {
     return (
-        <div className='px-3'>
+        <div className='bg-gray-50 min-h-screen px-3'>
             <Nav Toggle={Toggle} />
             <div className='container-fluid'>
                 <div className='row g-3 my-2'>
@@ -47,7 +46,7 @@ function AdminHome({ Toggle }) {
                 </div>
             </div>
             <table className="table caption-top bg-white rounded mt-2">
-                <caption className='text-white fs-4'>Recent Orders</caption>
+                <caption className='text-black fs-4'>Recent Orders</caption>
                 <thead>
                     <tr>
                         <th scope="col">#</th>
