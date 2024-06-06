@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 export default function AddToCart() {
   const { user } = useAuthContext();
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading]=useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchPanierData = async () => {
       try {
@@ -45,6 +46,7 @@ export default function AddToCart() {
       console.log(error);
     }
   }
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center" style={{ height: '100vh' }}>
@@ -52,25 +54,38 @@ export default function AddToCart() {
       </div>
     );
   }
+
   return (
-    <div className="mx-auto p-20" style={{minHeight:"400px"}}>
-      {data.map((item) => (
-        <div key={item.id_panier}  className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
-          <Link to={`/productDetails/${item.product.id}`}>
-          <div className="flex items-center">
-            <img src={item.product.image} className="w-16 h-16 object-cover mr-4" alt="product" />
-            <div>
-              <p>{item.product.nom}</p>
-              <p>{item.product.prix} DH</p>
+    <div className="mx-auto p-20" style={{ minHeight: "400px" }}>
+      {data.length > 0 ? (
+        data.map((item) => (
+          <div key={item.id_panier} className="items-center mb-4 bg-gray-100 p-4 rounded-lg flex justify-between">
+            <Link to={`/productDetails/${item.product.id}`} className="flex items-center">
+              <img 
+                src={`http://127.0.0.1:8008/storage/${item.product.image}`} // Correct path to the image
+                className="w-16 h-16 object-cover mr-4" 
+                alt="product" 
+              />
+              <div>
+                <p>{item.product.nom}</p>
+                <p>{item.product.prix} DH</p>
+              </div>
+            </Link>
+            <div className="flex justify-end">
+              <TrashIcon onClick={() => handleDelete(item.id_panier)} className="h-6 w-6 text-gray-500 cursor-pointer" />
             </div>
           </div>
-        </Link>
-          <div className="flex justify-end">
-            <TrashIcon onClick={() => handleDelete(item.id_panier)} className="h-6 w-6 text-gray-500 cursor-pointer" />
-          </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p style={{ textAlign: "center" }} className="text-2xl">Your cart is empty</p>
+      )}
       <div className="flex justify-end mt-6">
+        <Link 
+          className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+          to="/checkout"
+        >
+          Proceed to Checkout
+        </Link>
       </div>
     </div>
   );
