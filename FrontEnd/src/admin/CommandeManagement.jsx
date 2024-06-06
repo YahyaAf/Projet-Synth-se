@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
 const CommandPage = () => {
     const [commandes, setCommandes] = useState([]);
     const [selectedCommande, setSelectedCommande] = useState(null);
@@ -133,13 +134,13 @@ const CommandPage = () => {
                                         onClick={() => handleEdit(commande)}
                                         className="text-blue-600 hover:text-blue-900 mr-2 md:mr-4"
                                     >
-                                        Modifier
+                                        <PencilSquareIcon class="h-6 w-6 text-gray-500" />
                                     </button>
                                     <button
                                         onClick={() => handleDelete(commande.id)}
                                         className="hover:text-red-900"
                                     >
-                                        Supprimer
+                                        <TrashIcon class="h-6 w-6 text-gray-500" />
                                     </button>
                                 </div>
                             </li>
