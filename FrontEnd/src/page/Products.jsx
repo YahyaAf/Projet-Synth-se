@@ -45,7 +45,7 @@ export default function Products() {
                 <div key={item.id} className="bg-white p-4 rounded-md shadow-md my-1 flex flex-col justify-between">
                   <Link to={`/productDetails/${item.id}`}>
                     <div>
-                      <img src={item.image} alt="product" className="mb-2 transition-transform duration-300 transform hover:scale-110" />
+                      <img src={`http://127.0.0.1:8008/storage/${item.image}`} alt="product" className="mb-2 transition-transform duration-300 transform hover:scale-110" />
                       <h1 className="text-xl font-bold text-center mb-2">{item.nom} </h1>
                       <p className="text-gray-700 text-center">{item.prix} DH</p>
                     </div>

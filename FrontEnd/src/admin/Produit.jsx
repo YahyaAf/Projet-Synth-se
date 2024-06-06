@@ -8,7 +8,7 @@ export default function Produit() {
   const [description, setDescription] = useState('');
   const [prix, setPrix] = useState('');
   const [quantiteStock, setQuantiteStock] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [selectedProduit, setSelectedProduit] = useState(null);
   const [error, setError] = useState(null);
 
@@ -28,15 +28,19 @@ export default function Produit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const produit = { nom, description, prix, quantite_stock: quantiteStock, image };
+    const formData = new FormData();
+    formData.append('nom', nom);
+    formData.append('description', description);
+    formData.append('prix', prix);
+    formData.append('quantite_stock', quantiteStock);
+    if (image) {
+      formData.append('image', image);
+    }
 
     try {
       const response = await fetch(`http://localhost:8008/api/produit${selectedProduit ? `/${selectedProduit.id}` : ''}`, {
         method: selectedProduit ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(produit)
+        body: formData
       });
 
       if (!response.ok) {
@@ -59,7 +63,7 @@ export default function Produit() {
     setDescription(produit.description);
     setPrix(produit.prix);
     setQuantiteStock(produit.quantite_stock);
-    setImage(produit.image);
+    setImage(null); // Reset the image file input
   };
 
   const handleDelete = async (id) => {
@@ -86,14 +90,14 @@ export default function Produit() {
     setDescription('');
     setPrix('');
     setQuantiteStock('');
-    setImage('');
+    setImage(null);
     setError(null);
   };
 
   return (
     <div className="bg-gray-100 min-h-screen p-4 md:p-6">
       {error && <p className="alert alert-danger">{error}</p>}
-      <form onSubmit={handleSubmit} className="mb-6 p-4 md:p-6 border rounded shadow-sm bg-gray-200 max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit} className="mb-6 p-4 md:p-6 border rounded shadow-sm bg-gray-200 max-w-4xl mx-auto" encType="multipart/form-data">
         <h2 className="mb-4 text-lg md:text-xl font-semibold">{selectedProduit ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit'}</h2>
         <div className="mb-4">
           <label htmlFor="nom" className="block text-sm md:text-base font-medium text-gray-700">Nom</label>
@@ -146,13 +150,11 @@ export default function Produit() {
         <div className="mb-4">
           <label htmlFor="image" className="block text-sm md:text-base font-medium text-gray-700">Image</label>
           <input 
-            type="text" 
+            type="file" 
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-sm md:text-base" 
             id="image" 
             name="image" 
-            value={image} 
-            onChange={(e) => setImage(e.target.value)} 
-            required 
+            onChange={(e) => setImage(e.target.files[0])} 
           />
         </div>
         <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -179,7 +181,9 @@ export default function Produit() {
                 <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.description}</td>
                 <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.prix}</td>
                 <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.quantite_stock}</td>
-                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">{produit.image}</td>
+                <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                  {produit.image && <img src={`http://localhost:8008/storage/${produit.image}`} alt={produit.nom} className="w-20 h-20 object-cover" />}
+                </td>
                 <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium">
                   <button className="text-indigo-600 hover:text-indigo-900 mr-2 md:mr-4" onClick={() => handleEdit(produit)}>Modifier</button>
                   <button className="text-red-600 hover:text-red-900" onClick={() => handleDelete(produit.id)}>Supprimer</button>

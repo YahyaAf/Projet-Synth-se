@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useAuthContext from "../hooks/useAuthContext";
-import { useParams ,Link} from "react-router-dom";
-import Loading from "./Loading"; // Make sure to import your Loading component
+import { useParams, Link } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function ProductDetails() {
   const [data, setData] = useState(null);
@@ -53,7 +53,7 @@ export default function ProductDetails() {
         setAlertType('success');
       } else {
         const errorData = await response.json();
-        if (errorData.message === "The Product is already in the card") {
+        if (errorData.message === "The Product is already in the cart") {
           setAlertMessage(errorData.message);
           setAlertType('error');
         } else {
@@ -91,7 +91,7 @@ export default function ProductDetails() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="p-5">
           <img
-            src={`/public/${data.image}`}
+            src={`http://127.0.0.1:8008/storage/${data.image}`} // Correct path to the image
             className="w-full h-full object-cover"
             alt="Product"
           />
@@ -109,8 +109,8 @@ export default function ProductDetails() {
           <Link 
             className="mt-3 rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-center focus-visible:outline-orange-600"
             to={`/commande/${id}`}>
-              commande
-            </Link>
+              Commander
+          </Link>
         </div>
       </div>
     </div>
